@@ -581,6 +581,124 @@
 
     .chip.off { opacity: 0.3; filter: saturate(0.2); transform: translateX(-4px); }
 
+    /* ---------- walkthrough viewport (swappable layers) ---------- */
+    .b-fav {
+      width: 16px; height: 16px;
+      border-radius: 5px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #fff;
+      background: #f59e0b;
+      transition: background 0.35s ease;
+    }
+
+    .viewport { position: relative; height: 232px; overflow: hidden; }
+
+    .vp-layer {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.55s ease;
+    }
+
+    .vp-layer.is-on { opacity: 1; }
+
+    /* TradingView layer */
+    .tv-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px 6px; }
+    .tv-sym { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+    .tv-sym b { color: #9db7e4; font-weight: 600; }
+    .tv-tf {
+      font-family: var(--mono); font-size: 10px; color: var(--faint);
+      border: 1px solid var(--line); border-radius: 5px; padding: 2px 7px;
+    }
+    .tv-price { margin-left: auto; font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); }
+    .tv-chg { font-family: var(--mono); font-size: 11px; color: var(--green); }
+    #tvChart { display: block; width: 100%; height: 150px; }
+
+    /* Screener layer */
+    .sc-head { display: flex; align-items: baseline; gap: 10px; padding: 13px 15px 4px; flex-wrap: wrap; }
+    .sc-head b { font-family: var(--display); font-size: 14px; font-weight: 600; }
+    .sc-head span { font-family: var(--mono); font-size: 10.5px; color: var(--faint); }
+    .sc-head i { color: var(--muted); font-style: normal; }
+    .sc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 10px 13px 14px; }
+    .sc-cell {
+      background: rgba(255, 255, 255, 0.022);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px 10px;
+    }
+    .sc-cell .l {
+      display: block; font-family: var(--mono); font-size: 8.5px;
+      text-transform: uppercase; letter-spacing: 0.4px; color: var(--faint);
+    }
+    .sc-cell .v { display: block; font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text); margin-top: 4px; }
+
+    /* in-demo Ctrl+Q keycaps */
+    .demo-keys {
+      position: absolute;
+      left: 215px;
+      top: 150px;
+      transform: translateX(-50%) translateY(10px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 6;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .demo-keys .keycap { font-size: 15px; padding: 10px 16px; transition: background 0.12s ease; }
+    .demo-keys .plus { color: var(--faint); font-family: var(--mono); }
+
+    /* caption + progress beneath the card */
+    .demo-cap {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 34px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      padding: 0 12px;
+      min-height: 18px;
+    }
+    .demo-cap span { transition: opacity 0.3s ease; }
+    .demo-track {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      width: 200px; height: 3px;
+      border-radius: 3px;
+      background: var(--line-strong);
+      overflow: hidden;
+    }
+    .demo-track i {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--blue), #8ab8ff);
+    }
+    .demo-dots {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      display: flex;
+      gap: 7px;
+    }
+    .demo-dots b {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--line-strong);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .demo-dots b.on { background: var(--blue); transform: scale(1.3); }
+
     /* ============================================================
        Ticker tape
     ============================================================ */
@@ -1146,6 +1264,7 @@
       .popup { position: relative; top: 0; margin: -46px 0 0 auto; right: -4px; }
       .chips { position: relative; left: 0; top: 0; margin-top: 22px; }
       .cursor-dot { display: none; }
+      .demo-cap, .demo-track, .demo-dots, .demo-keys { display: none; }
       .swap-cards { flex-direction: column; }
       .swap-arrows { transform: rotate(90deg); }
       .spec-row { grid-template-columns: 1fr; gap: 4px; padding: 15px 18px; }
@@ -1224,27 +1343,59 @@
           </div>
         </div>
 
-        <!-- demo composition -->
-        <div class="demo" aria-hidden="true">
+        <!-- demo composition: auto-playing walkthrough -->
+        <div class="demo" id="heroDemo" aria-hidden="true">
           <div class="glow"></div>
 
           <div class="browser">
             <div class="browser-bar">
               <span class="b-dots"><i></i><i></i><i></i></span>
-              <span class="b-url"><b>chartink.com</b>/screener/f-o-stocks</span>
+              <span class="b-fav" id="demoFav">C</span>
+              <span class="b-url" id="demoUrl"><b>chartink.com</b>/screener/f-o-stocks</span>
             </div>
-            <div class="stock-table" id="stockTable">
-              <div class="st-head"><span>Stock</span><span style="text-align:right">Close</span><span style="text-align:right">%Chg</span></div>
-              <div class="st-row"><span class="sym">NESTLEIND</span><span class="price">1,438.30</span><span class="chg">+1.98%</span></div>
-              <div class="st-row"><span class="sym">SHREECEM</span><span class="price">23,850.00</span><span class="chg">+1.86%</span></div>
-              <div class="st-row"><span class="sym">HINDUNILVR</span><span class="price">2,169.50</span><span class="chg">+1.72%</span></div>
-              <div class="st-row"><span class="sym">AXISBANK</span><span class="price">1,314.50</span><span class="chg">+1.71%</span></div>
-              <div class="st-row"><span class="sym">KOTAKBANK</span><span class="price">388.10</span><span class="chg">+1.68%</span></div>
-            </div>
-            <div class="cursor-dot" id="cursorDot">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 3l7.5 16 2.2-6.3L21 10.5 5 3Z" fill="#fff" stroke="#0a1020" stroke-width="1.4" stroke-linejoin="round" />
-              </svg>
+
+            <div class="viewport" id="demoViewport">
+              <!-- layer 1 — Chartink screener -->
+              <div class="vp-layer is-on" id="layerTable">
+                <div class="stock-table" id="stockTable">
+                  <div class="st-head"><span>Stock</span><span style="text-align:right">Close</span><span style="text-align:right">%Chg</span></div>
+                  <div class="st-row"><span class="sym">NESTLEIND</span><span class="price">1,438.30</span><span class="chg">+1.98%</span></div>
+                  <div class="st-row"><span class="sym">SHREECEM</span><span class="price">23,850.00</span><span class="chg">+1.86%</span></div>
+                  <div class="st-row"><span class="sym">HINDUNILVR</span><span class="price">2,169.50</span><span class="chg">+1.72%</span></div>
+                  <div class="st-row"><span class="sym">AXISBANK</span><span class="price">1,314.50</span><span class="chg">+1.71%</span></div>
+                  <div class="st-row"><span class="sym">KOTAKBANK</span><span class="price">388.10</span><span class="chg">+1.68%</span></div>
+                </div>
+              </div>
+
+              <!-- layer 2 — TradingView chart -->
+              <div class="vp-layer" id="layerChart">
+                <div class="tv-head">
+                  <span class="tv-sym">NSE:<b>NESTLEIND</b></span>
+                  <span class="tv-tf">1D</span>
+                  <span class="tv-price">1,438.30</span>
+                  <span class="tv-chg">+1.98%</span>
+                </div>
+                <canvas id="tvChart" width="396" height="150"></canvas>
+              </div>
+
+              <!-- layer 3 — Screener fundamentals -->
+              <div class="vp-layer" id="layerScreener">
+                <div class="sc-head"><b>Nestle India Ltd</b><span>NSE: <i>NESTLEIND</i></span></div>
+                <div class="sc-grid">
+                  <div class="sc-cell"><span class="l">Market Cap</span><span class="v">₹1,38,640 Cr</span></div>
+                  <div class="sc-cell"><span class="l">Stock P/E</span><span class="v">62.4</span></div>
+                  <div class="sc-cell"><span class="l">ROCE</span><span class="v">112%</span></div>
+                  <div class="sc-cell"><span class="l">ROE</span><span class="v">88.5%</span></div>
+                  <div class="sc-cell"><span class="l">Div Yield</span><span class="v">1.18%</span></div>
+                  <div class="sc-cell"><span class="l">52w H / L</span><span class="v">1,469 / 1,205</span></div>
+                </div>
+              </div>
+
+              <div class="cursor-dot" id="cursorDot">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 3l7.5 16 2.2-6.3L21 10.5 5 3Z" fill="#fff" stroke="#0a1020" stroke-width="1.4" stroke-linejoin="round" />
+                </svg>
+              </div>
             </div>
           </div>
 
@@ -1281,6 +1432,16 @@
               <span class="val" id="scVal">Nestle India · financials</span>
             </div>
           </div>
+
+          <!-- Ctrl+Q keycaps (shown during the shortcut beat) -->
+          <div class="demo-keys" id="demoKeys">
+            <span class="keycap">Ctrl</span><span class="plus">+</span><span class="keycap">Q</span>
+          </div>
+
+          <!-- caption + progress -->
+          <div class="demo-cap"><span id="demoCapTxt">Click any stock in your Chartink scan</span></div>
+          <div class="demo-track"><i id="demoBar"></i></div>
+          <div class="demo-dots" id="demoDots"><b class="on"></b><b></b><b></b><b></b></div>
         </div>
       </div>
     </div>
@@ -1570,44 +1731,185 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // hero demo: cycle active stock row, move cursor, update chips
-    const rows = [...document.querySelectorAll('#stockTable .st-row')];
-    const dot = document.getElementById('cursorDot');
-    const tvVal = document.getElementById('tvVal');
-    const scVal = document.getElementById('scVal');
-    const names = {
-      NESTLEIND: 'Nestle India', SHREECEM: 'Shree Cements', HINDUNILVR: 'Hind. Unilever',
-      AXISBANK: 'Axis Bank', KOTAKBANK: 'Kotak Mah. Bank'
-    };
-    let cur = 0;
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* ---------- hero walkthrough: auto-playing, looping mini-demo ---------- */
+    (function heroWalkthrough() {
+      const $ = id => document.getElementById(id);
+      const demo = $('heroDemo');
+      if (!demo) return;
 
-    function setRow(i) {
-      rows.forEach((r, j) => r.classList.toggle('active', j === i));
-      const sym = rows[i].querySelector('.sym').textContent;
-      const top = rows[i].offsetTop + rows[i].offsetHeight / 2 - 8;
-      dot.style.top = top + 'px';
-      dot.classList.remove('click');
-      void dot.offsetWidth;
-      dot.classList.add('click');
-      [ [tvVal, 'NSE:' + sym + ' · chart'], [scVal, (names[sym] || sym) + ' · financials'] ].forEach(([el, txt]) => {
-        el.classList.add('swap');
-        setTimeout(() => { el.textContent = txt; el.classList.remove('swap'); }, 250);
-      });
-    }
-    setRow(0);
-    // cycle only the rows that stay fully visible under the layered popup
-    if (!reduced) setInterval(() => { cur = (cur + 1) % 3; setRow(cur); }, 3000);
+      const viewport = $('demoViewport');
+      const rows = [...document.querySelectorAll('#stockTable .st-row')];
+      const dot = $('cursorDot');
+      const layers = { table: $('layerTable'), chart: $('layerChart'), screener: $('layerScreener') };
+      const chipTv = $('chip-tv'), chipSc = $('chip-sc');
+      const popup = $('popupCard'), keys = $('demoKeys');
+      const capTxt = $('demoCapTxt'), bar = $('demoBar');
+      const dots = [...document.querySelectorAll('#demoDots b')];
+      const favEl = $('demoFav'), urlEl = $('demoUrl'), cv = $('tvChart');
 
-    // popup replica toggles drive the chips
-    document.querySelectorAll('.pp-opt').forEach(opt => {
-      opt.addEventListener('click', () => {
-        opt.classList.toggle('on');
-        const map = { tv: 'chip-tv', sc: 'chip-sc' };
-        const chip = document.getElementById(map[opt.dataset.chip]);
-        if (chip) chip.classList.toggle('off', !opt.classList.contains('on'));
-      });
-    });
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const mobile = matchMedia('(max-width: 700px)').matches;
+
+      dot.style.transition = 'none'; // cursor is driven per-frame
+
+      // easing helpers (ported from the full-res walkthrough)
+      const clamp01 = v => Math.max(0, Math.min(1, v));
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const eoc = t => 1 - Math.pow(1 - t, 3);
+      const seg = (t, s, d) => eoc(clamp01((t - s) / d));
+      const mulberry32 = a => () => { let t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+
+      // seeded candles for the TradingView beat
+      const N = 34;
+      const candles = (() => {
+        const rnd = mulberry32(7); let price = 100; const out = [];
+        for (let i = 0; i < N; i++) {
+          const o = price, c = price + 1.6 + (rnd() - 0.46) * 9;
+          out.push({ o, c, hi: Math.max(o, c) + rnd() * 4, lo: Math.min(o, c) - rnd() * 4 });
+          price = c;
+        }
+        return out;
+      })();
+      const lo = Math.min(...candles.map(k => k.lo)), hi = Math.max(...candles.map(k => k.hi));
+
+      let cw = 0, ch = 0, vpW = 0;
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      function measure() {
+        vpW = viewport.clientWidth;
+        const r = cv.getBoundingClientRect();
+        if (r.width) { cw = r.width; ch = r.height; cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr); }
+      }
+      function drawChart(progress) {
+        if (!cw) measure();
+        if (!cw) return;
+        const ctx = cv.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.strokeStyle = 'rgba(141,163,199,0.10)'; ctx.lineWidth = 1;
+        for (let y = 18; y < ch; y += 32) { ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(cw, y + .5); ctx.stroke(); }
+        const pad = 12, Y = v => pad + (ch - pad * 2) * (1 - (v - lo) / (hi - lo));
+        const slot = cw / N, bw = Math.max(2.5, slot * 0.58), shown = Math.floor(N * clamp01(progress));
+        for (let i = 0; i < shown; i++) {
+          const k = candles[i], x = i * slot + slot / 2, up = k.c >= k.o, col = up ? '#2fd58c' : '#f4647d';
+          ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 1.4;
+          ctx.beginPath(); ctx.moveTo(x, Y(k.hi)); ctx.lineTo(x, Y(k.lo)); ctx.stroke();
+          const top = Y(Math.max(k.o, k.c)); ctx.fillRect(x - bw / 2, top, bw, Math.max(1.5, Y(Math.min(k.o, k.c)) - top));
+        }
+        if (shown > 2) {
+          ctx.strokeStyle = 'rgba(59,130,246,0.7)'; ctx.setLineDash([5, 4]); ctx.lineWidth = 1;
+          const yy = Y(candles[shown - 1].c); ctx.beginPath(); ctx.moveTo(0, yy); ctx.lineTo(cw, yy); ctx.stroke(); ctx.setLineDash([]);
+        }
+      }
+
+      const CAPTIONS = [
+        'Click any stock in your Chartink scan',
+        'It opens on every platform you ticked',
+        'Live TradingView chart — symbol resolved',
+        'Ctrl + Q flips to Screener fundamentals'
+      ];
+      const URLS = [
+        '<b>chartink.com</b>/screener/f-o-stocks',
+        '<b>chartink.com</b>/screener/f-o-stocks',
+        '<b>tradingview.com</b>/chart · NSE:NESTLEIND',
+        '<b>screener.in</b>/company/NESTLEIND'
+      ];
+      const FAV = [['C', '#f59e0b'], ['C', '#f59e0b'], ['T', '#2962ff'], ['S', '#16a34a']];
+      const D = [3.2, 2.8, 3.2, 3.6], LOOP = D.reduce((a, b) => a + b, 0);
+      const starts = D.map((_, i) => D.slice(0, i).reduce((a, b) => a + b, 0));
+
+      let curScene = -1;
+      function setScene(i) {
+        if (i === curScene) return;
+        curScene = i;
+        if (i === 0) dot.classList.remove('click');
+        capTxt.style.opacity = 0;
+        setTimeout(() => { capTxt.textContent = CAPTIONS[i]; capTxt.style.opacity = 1; }, 170);
+        urlEl.innerHTML = URLS[i];
+        favEl.textContent = FAV[i][0]; favEl.style.background = FAV[i][1];
+        dots.forEach((d, j) => d.classList.toggle('on', j === i));
+      }
+      const showLayer = (n, on) => layers[n].classList.toggle('is-on', on);
+
+      function render(t) {
+        let s = 0; while (s < D.length - 1 && t >= starts[s + 1]) s++;
+        const lt = t - starts[s];
+        setScene(s);
+        bar.style.width = (t / LOOP * 100) + '%';
+
+        showLayer('table', s < 2);
+        showLayer('chart', s === 2);
+        showLayer('screener', s === 3);
+
+        // popup appears only during the fan-out beat, then fades
+        popup.style.opacity = (s === 1) ? clamp01(Math.min(seg(lt, 0, 0.4), 1 - clamp01((lt - 1.9) / 0.5))) : 0;
+
+        // destination chips light up from scene 1 onward
+        chipTv.classList.toggle('off', s < 1);
+        chipSc.classList.toggle('off', s < 1);
+
+        // clicked row stays highlighted through the click + fan-out
+        rows.forEach((r, j) => r.classList.toggle('active', s < 2 && j === 0 && (s === 1 || lt > 1.5)));
+
+        // cursor glides in and clicks during scene 0
+        if (s === 0) {
+          const r = rows[0], targetY = r.offsetTop + r.offsetHeight / 2 - 8;
+          dot.style.opacity = clamp01((lt - 0.15) / 0.3) * (lt > 2.7 ? clamp01((3.1 - lt) / 0.4) : 1);
+          dot.style.left = (vpW * 0.36) + 'px';
+          dot.style.top = lerp(6, targetY, seg(lt, 0.3, 1.05)) + 'px';
+          if (lt > 1.45 && lt < 1.65) dot.classList.add('click');
+        } else dot.style.opacity = 0;
+
+        // chart draws in during scene 2
+        if (s === 2) drawChart(seg(lt, 0.15, 2.0));
+
+        // keycaps press + flip in scene 3 (fade out after the press so Screener stays clear)
+        if (s === 3) {
+          const appear = seg(lt, 0.2, 0.5);
+          const press = (lt > 0.9 && lt < 1.3) ? Math.sin((lt - 0.9) / 0.4 * Math.PI) : 0;
+          keys.style.opacity = Math.min(appear, 1 - clamp01((lt - 1.8) / 0.5));
+          keys.style.transform = `translateX(-50%) translateY(${(1 - appear) * 10 + press * 4}px)`;
+          keys.querySelectorAll('.keycap').forEach(k => {
+            k.style.transform = `translateY(${press * 4}px)`;
+            k.style.background = press > 0.4 ? 'rgba(59,130,246,0.20)' : '';
+          });
+        } else keys.style.opacity = 0;
+      }
+
+      // static composition for reduced-motion / mobile
+      function staticDesktop() { // show the chart payoff frame
+        setScene(2); showLayer('table', false); showLayer('chart', true); showLayer('screener', false);
+        chipTv.classList.remove('off'); chipSc.classList.remove('off');
+        popup.style.opacity = 0; keys.style.opacity = 0; dot.style.opacity = 0; bar.style.width = '100%';
+        measure(); drawChart(1);
+      }
+      function staticMobile() { // keep the recognizable stacked layout
+        setScene(0); showLayer('table', true); showLayer('chart', false); showLayer('screener', false);
+        chipTv.classList.remove('off'); chipSc.classList.remove('off');
+        popup.style.opacity = 1; keys.style.opacity = 0; dot.style.opacity = 0;
+      }
+      if (mobile) { staticMobile(); return; }
+      if (reduced) { staticDesktop(); window.addEventListener('load', staticDesktop); return; }
+
+      // animation loop, paused when the tab is hidden or the hero is scrolled away
+      let raf = 0, lastNow = 0, elapsed = 0, running = false, onScreen = true;
+      function frame(now) {
+        if (lastNow) elapsed += now - lastNow;
+        lastNow = now;
+        render((elapsed / 1000) % LOOP);
+        raf = requestAnimationFrame(frame);
+      }
+      function play() { if (!running && onScreen && !document.hidden) { running = true; lastNow = 0; raf = requestAnimationFrame(frame); } }
+      function pause() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; }
+
+      document.addEventListener('visibilitychange', () => document.hidden ? pause() : play());
+      new IntersectionObserver(es => { onScreen = es[0].isIntersecting; onScreen ? play() : pause(); }, { threshold: 0.05 }).observe(demo);
+      window.addEventListener('resize', () => { cw = 0; measure(); });
+      window.addEventListener('load', measure);
+      measure();
+      play();
+    })();
 
     // duplicate ticker content for a seamless loop
     const track = document.getElementById('tapeTrack');
