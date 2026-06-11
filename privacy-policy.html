@@ -4,176 +4,316 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — Chartink to TradingView / Screener</title>
+  <title>Privacy Policy — Chartink Redirector</title>
+  <meta name="description"
+    content="Privacy policy for the Chartink to TradingView/Screener Chrome extension. No data collection, no servers, no analytics.">
+  <link rel="canonical" href="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/privacy-policy.html">
+  <meta name="theme-color" content="#070b15">
+  <meta name="robots" content="index,follow">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cpath d='M18 24h26M37 17l7 7-7 7' stroke='%23fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M46 42H20m7-7-7 7 7 7' stroke='%2393c5fd' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap"
+    rel="stylesheet">
+
   <style>
     :root {
-      --accent: #2563eb;
-      --text: #1a2233;
-      --muted: #475569;
-      --border: #e3e8ef;
+      --ink: #070b15;
+      --panel: #0c1326;
+      --line: rgba(141, 163, 199, 0.14);
+      --line-strong: rgba(141, 163, 199, 0.26);
+      --text: #e7edf8;
+      --muted: #97a4bd;
+      --faint: #5d6b87;
+      --blue: #3b82f6;
+      --green: #2fd58c;
+      --display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+      --body: "Inter", "Segoe UI", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: var(--body);
+      background: var(--ink);
       color: var(--text);
-      line-height: 1.65;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
+      line-height: 1.7;
+      font-size: 15.5px;
       -webkit-font-smoothing: antialiased;
     }
 
-    header {
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 18px;
-      margin-bottom: 28px;
+    ::selection { background: rgba(59, 130, 246, 0.35); }
+
+    .paper {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 100%);
     }
 
-    h1 { font-size: 26px; margin: 0 0 6px; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(7, 11, 21, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
 
-    .sub { color: var(--muted); font-size: 14px; margin: 0; }
+    .nav-in {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 14px 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-    .updated { color: var(--muted); font-size: 13px; margin-top: 10px; }
-
-    h2 {
-      font-size: 18px;
-      margin: 32px 0 10px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
       color: var(--text);
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 15.5px;
     }
 
-    p, li { color: var(--text); font-size: 15px; }
+    .back {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
 
-    ul { padding-left: 22px; }
+    .back:hover { color: var(--text); }
 
-    li { margin-bottom: 8px; }
+    main {
+      position: relative;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 64px 26px 90px;
+    }
 
-    a { color: var(--accent); }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(30px, 5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.12;
+      margin-bottom: 10px;
+    }
+
+    .meta {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--faint);
+      margin-bottom: 36px;
+    }
 
     .callout {
-      background: #f5f7fa;
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin: 22px 0;
+      border: 1px solid rgba(47, 213, 140, 0.3);
+      background: rgba(47, 213, 140, 0.06);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 44px;
       font-size: 15px;
     }
 
-    footer {
-      margin-top: 48px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 13px;
+    .callout b { color: var(--green); }
+
+    h2 {
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin: 40px 0 12px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
     }
 
+    h2 .n {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--blue);
+    }
+
+    p, li { color: var(--muted); }
+
+    p strong, li strong { color: var(--text); font-weight: 600; }
+
+    ul { padding-left: 22px; margin: 10px 0; }
+
+    li { margin-bottom: 8px; }
+
+    a { color: #7eaeff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
     code {
-      background: #eef1f6;
-      padding: 1px 6px;
-      border-radius: 4px;
+      font-family: var(--mono);
       font-size: 13px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      padding: 1px 7px;
+      border-radius: 5px;
+      color: var(--text);
+    }
+
+    footer {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 26px;
+      border-top: 1px solid var(--line);
+      font-size: 12.5px;
+      color: var(--faint);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
     }
   </style>
 </head>
 
 <body>
-  <header>
+  <div class="paper" aria-hidden="true"></div>
+
+  <nav>
+    <div class="nav-in">
+      <a class="brand" href="./">
+        <svg width="24" height="24" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#2563eb" />
+          <path d="M18 24h26M37 17l7 7-7 7" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M46 42H20m7-7-7 7 7 7" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Chartink Redirector
+      </a>
+      <a class="back" href="./">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6 6-6-6 6-6"/></svg>
+        Back to home
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <p class="eyebrow">Legal</p>
     <h1>Privacy Policy</h1>
-    <p class="sub">Chartink to TradingView / Screener (Chrome Extension)</p>
-    <p class="updated">Last updated: June 8, 2026</p>
-  </header>
+    <p class="meta">Chartink to TradingView / Screener (Chrome extension) · Last updated: June 8, 2026</p>
 
-  <div class="callout">
-    <strong>In short:</strong> This extension does not collect, store, transmit, or sell any
-    personal data. It has no servers, no analytics, and no tracking. Your settings stay on your
-    own device.
-  </div>
+    <div class="callout">
+      <b>In short:</b> this extension does not collect, store, transmit, or sell any personal data.
+      It has no servers, no analytics, and no tracking. Your settings stay on your own device.
+    </div>
 
-  <h2>1. Who this applies to</h2>
-  <p>
-    This policy covers the Chrome extension <strong>"Chartink to TradingView / Screener"</strong>
-    ("the extension"), developed by Alen Sarang Satheesh. It explains exactly what data the
-    extension does and does not handle.
-  </p>
+    <h2><span class="n">01</span> Who this applies to</h2>
+    <p>
+      This policy covers the Chrome extension <strong>"Chartink to TradingView / Screener"</strong>
+      ("the extension"), developed by Alen Sarang Satheesh. It explains exactly what data the
+      extension does and does not handle.
+    </p>
 
-  <h2>2. Data we collect</h2>
-  <p>
-    <strong>None.</strong> The extension does not collect or process any personally identifiable
-    information, browsing history, financial information, authentication data, location, or
-    analytics of any kind. We do not have any servers, and no information ever leaves your browser.
-  </p>
+    <h2><span class="n">02</span> Data we collect</h2>
+    <p>
+      <strong>None.</strong> The extension does not collect or process any personally identifiable
+      information, browsing history, financial information, authentication data, location, or
+      analytics of any kind. We do not have any servers, and no information ever leaves your browser.
+    </p>
 
-  <h2>3. Information stored locally on your device</h2>
-  <p>
-    The only data the extension saves is your own configuration, kept on your device using the
-    browser's local storage (<code>chrome.storage.local</code>):
-  </p>
-  <ul>
-    <li>Your selected redirect platform(s) — TradingView, Screener.in, and/or Chartink.</li>
-    <li>The last stock symbol you clicked on Chartink, used only to re-highlight it on that page.</li>
-  </ul>
-  <p>
-    This information never leaves your computer, is not transmitted to us or any third party, and
-    is removed when you uninstall the extension.
-  </p>
+    <h2><span class="n">03</span> Information stored locally on your device</h2>
+    <p>
+      The only data the extension saves is your own configuration, kept on your device using the
+      browser's local storage (<code>chrome.storage.local</code>):
+    </p>
+    <ul>
+      <li>Your selected redirect platform(s) — TradingView, Screener.in, and/or Chartink.</li>
+      <li>The last stock symbol you clicked on Chartink, used only to re-highlight it on that page.</li>
+    </ul>
+    <p>
+      This information never leaves your computer, is not transmitted to us or any third party, and
+      is removed when you uninstall the extension.
+    </p>
 
-  <h2>4. Permissions and why they are needed</h2>
-  <ul>
-    <li>
-      <strong>Storage</strong> — to remember your redirect preferences between browser sessions.
-    </li>
-    <li>
-      <strong>Host access to chartink.com, screener.in, and tradingview.com</strong> — to read the
-      stock symbol on the page you are viewing and open that stock on your chosen platform. The
-      extension runs only on these three websites and accesses no other sites.
-    </li>
-  </ul>
+    <h2><span class="n">04</span> Permissions and why they are needed</h2>
+    <ul>
+      <li>
+        <strong>Storage</strong> — to remember your redirect preferences between browser sessions.
+      </li>
+      <li>
+        <strong>Host access to chartink.com, screener.in, and tradingview.com</strong> — to read the
+        stock symbol on the page you are viewing and open that stock on your chosen platform. The
+        extension runs only on these three websites and accesses no other sites.
+      </li>
+    </ul>
 
-  <h2>5. How the extension works</h2>
-  <p>
-    When you click a stock link on Chartink, the extension reads the stock symbol from that link and
-    opens the corresponding page on the platform(s) you selected. When you press
-    <strong>Ctrl + Q</strong> on a TradingView or Screener page, it reads the current stock symbol
-    and switches you to the other platform for the same stock. All of this happens locally in your
-    browser.
-  </p>
+    <h2><span class="n">05</span> How the extension works</h2>
+    <p>
+      When you click a stock link on Chartink, the extension reads the stock symbol from that link and
+      opens the corresponding page on the platform(s) you selected. When you press
+      <strong>Ctrl + Q</strong> on a TradingView or Screener page, it reads the current stock symbol
+      and switches you to the other platform for the same stock. All of this happens locally in your
+      browser.
+    </p>
 
-  <h2>6. Third parties and remote code</h2>
-  <p>
-    The extension does not load or execute any remote code. It contains no third-party analytics,
-    advertising, or tracking libraries. Navigating to TradingView, Screener.in, or Chartink is
-    governed by those websites' own privacy policies.
-  </p>
+    <h2><span class="n">06</span> Third parties and remote code</h2>
+    <p>
+      The extension does not load or execute any remote code. It contains no third-party analytics,
+      advertising, or tracking libraries. Navigating to TradingView, Screener.in, or Chartink is
+      governed by those websites' own privacy policies.
+    </p>
 
-  <h2>7. Data sharing and selling</h2>
-  <p>
-    We do not sell, rent, share, or transfer any user data to anyone, because no user data is
-    collected in the first place.
-  </p>
+    <h2><span class="n">07</span> Data sharing and selling</h2>
+    <p>
+      We do not sell, rent, share, or transfer any user data to anyone, because no user data is
+      collected in the first place.
+    </p>
 
-  <h2>8. Children's privacy</h2>
-  <p>
-    The extension is a general-purpose stock-research utility and does not knowingly collect data
-    from anyone, including children.
-  </p>
+    <h2><span class="n">08</span> Children's privacy</h2>
+    <p>
+      The extension is a general-purpose stock-research utility and does not knowingly collect data
+      from anyone, including children.
+    </p>
 
-  <h2>9. Changes to this policy</h2>
-  <p>
-    If this policy changes, the updated version will be published at this same URL with a new
-    "Last updated" date.
-  </p>
+    <h2><span class="n">09</span> Changes to this policy</h2>
+    <p>
+      If this policy changes, the updated version will be published at this same URL with a new
+      "Last updated" date.
+    </p>
 
-  <h2>10. Contact</h2>
-  <p>
-    Questions or concerns? Email
-    <a href="mailto:alensarangsatheesh@gmail.com">alensarangsatheesh@gmail.com</a>.
-  </p>
+    <h2><span class="n">10</span> Contact</h2>
+    <p>
+      Questions or concerns? Email
+      <a href="mailto:alensarangsatheesh@gmail.com">alensarangsatheesh@gmail.com</a>.
+    </p>
+  </main>
 
   <footer>
-    &copy; 2026 Alen Sarang Satheesh. This privacy policy is provided for the
-    "Chartink to TradingView / Screener" Chrome extension.
+    <span>© 2026 Alen Sarang Satheesh</span>
+    <span>Provided for the "Chartink to TradingView / Screener" Chrome extension.</span>
   </footer>
 </body>
 
