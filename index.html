@@ -1,421 +1,1618 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unlimited Watchlists for TradingView — Free Chrome Extension</title>
-  <meta name="description" content="A free Chrome side-panel extension for unlimited TradingView-style watchlists. Import stocks from Chartink screeners or CSV, re-sync with one click, and open any chart on TradingView instantly.">
+  <title>Chartink Redirector — From Chartink to TradingView &amp; Screener in one click</title>
+  <meta name="description"
+    content="A featherweight Chrome extension for Indian stock-market research. Click any stock on Chartink and it opens instantly on TradingView and Screener.in. Switch platforms with Ctrl+Q. No data collection.">
   <link rel="canonical" href="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/">
-  <meta name="theme-color" content="#0a0c10">
+  <meta name="theme-color" content="#070b15">
 
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Unlimited Watchlists for TradingView — Free Chrome Extension">
-  <meta property="og:description" content="Unlimited watchlists in your browser side panel. Import from Chartink or CSV, open any chart on TradingView with one click. Free, private, no account needed.">
+  <meta property="og:title" content="Chartink Redirector — From Chartink to TradingView &amp; Screener in one click">
+  <meta property="og:description"
+    content="Click any stock on Chartink and it opens instantly on TradingView and Screener.in. Switch platforms with Ctrl+Q. No data collection.">
   <meta property="og:url" content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/">
-  <meta property="og:image" content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/assets/img/promo-marquee.png">
+  <meta property="og:image" content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Unlimited Watchlists for TradingView — Free Chrome Extension">
-  <meta name="twitter:description" content="Unlimited watchlists in your browser side panel. Import from Chartink or CSV, open any chart on TradingView with one click.">
-  <meta name="twitter:image" content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/assets/img/promo-marquee.png">
 
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icon16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icon48.png">
-  <link rel="apple-touch-icon" href="assets/img/icon128.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cpath d='M18 24h26M37 17l7 7-7 7' stroke='%23fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M46 42H20m7-7-7 7 7 7' stroke='%2393c5fd' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Chartink to TradingView/Screener",
+    "operatingSystem": "Chrome",
+    "applicationCategory": "BrowserApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "ratingCount": "1" },
+    "url": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/",
+    "downloadUrl": "https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb",
+    "author": { "@type": "Person", "name": "Alen Sarang Satheesh" }
+  }
+  </script>
+
+  <style>
+    /* ============================================================
+       Tokens
+    ============================================================ */
+    :root {
+      --ink: #070b15;
+      --ink-2: #0a1020;
+      --panel: #0c1326;
+      --panel-2: #101a33;
+      --line: rgba(141, 163, 199, 0.14);
+      --line-strong: rgba(141, 163, 199, 0.26);
+      --text: #e7edf8;
+      --muted: #97a4bd;
+      --faint: #5d6b87;
+      --blue: #3b82f6;
+      --blue-deep: #2563eb;
+      --blue-soft: rgba(59, 130, 246, 0.12);
+      --green: #2fd58c;
+      --red: #f4647d;
+      --amber: #f59e0b;
+      --display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+      --body: "Inter", "Segoe UI", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      --rad: 14px;
+      --rad-sm: 9px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--ink);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: rgba(59, 130, 246, 0.35); }
+
+    a { color: inherit; }
+
+    /* chart-paper grid over the whole canvas */
+    .paper {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 100%);
+    }
+
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+    /* ============================================================
+       Nav
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      transition: background 0.25s ease, border-color 0.25s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(7, 11, 21, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--line);
+    }
+
+    .nav-in {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 15px 28px;
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 16.5px;
+      letter-spacing: 0.1px;
+    }
+
+    .brand svg { display: block; }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      margin-left: auto;
+    }
+
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ============================================================
+       Buttons
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 14.5px;
+      text-decoration: none;
+      border-radius: var(--rad-sm);
+      padding: 12px 22px;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #3b82f6 0%, #2257d6 100%);
+      color: #fff;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.22) inset, 0 8px 24px -8px rgba(37, 99, 235, 0.65);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.22) inset, 0 12px 30px -8px rgba(37, 99, 235, 0.8);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .btn-ghost:hover { border-color: rgba(141, 163, 199, 0.5); background: rgba(255, 255, 255, 0.05); }
+
+    .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+    /* ============================================================
+       Hero
+    ============================================================ */
+    .hero {
+      position: relative;
+      padding: 158px 0 96px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 760px; height: 760px;
+      top: -300px; right: -180px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.16) 0%, transparent 62%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 56px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.4px;
+      color: var(--muted);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 6px 14px;
+      margin-bottom: 26px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .pill .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+    }
+
+    .pill b { color: var(--text); font-weight: 600; }
+
+    .pill .star { color: var(--amber); }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(36px, 4.4vw, 56px);
+      line-height: 1.07;
+      font-weight: 700;
+      letter-spacing: -1.2px;
+      margin-bottom: 22px;
+      text-wrap: balance;
+    }
+
+    h1 .tv { color: #5d9bff; }
+    h1 .sc { color: var(--green); }
+
+    h1 .stroke {
+      background: linear-gradient(92deg, #5d9bff, #8ab8ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lede {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 34px;
+    }
+
+    .lede strong { color: var(--text); font-weight: 600; }
+
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+    .hero-meta {
+      display: flex;
+      gap: 22px;
+      margin-top: 30px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--faint);
+      flex-wrap: wrap;
+    }
+
+    .hero-meta span { display: inline-flex; align-items: center; gap: 7px; }
+
+    .hero-meta svg { flex-shrink: 0; }
+
+    /* ---------- hero demo composition ---------- */
+    .demo {
+      position: relative;
+      min-height: 584px;
+    }
+
+    .glow {
+      position: absolute;
+      inset: 8% 4%;
+      background: radial-gradient(ellipse at 45% 40%, rgba(37, 99, 235, 0.22), transparent 65%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    /* browser card */
+    .browser {
+      position: absolute;
+      top: 0; left: 0;
+      width: min(430px, 84%);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      box-shadow: 0 30px 70px -25px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .b-dots { display: flex; gap: 5.5px; }
+    .b-dots i { width: 9px; height: 9px; border-radius: 50%; background: #29334d; }
+
+    .b-url {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--faint);
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 4px 11px;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .b-url b { color: var(--muted); font-weight: 500; }
+
+    .stock-table { padding: 8px 6px 10px; }
+
+    .st-head, .st-row {
+      display: grid;
+      grid-template-columns: 1.5fr 0.8fr 0.7fr;
+      gap: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      align-items: center;
+    }
+
+    .st-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--faint);
+      padding-bottom: 5px;
+    }
+
+    .st-row {
+      border-radius: 8px;
+      cursor: default;
+      transition: background 0.25s ease;
+    }
+
+    .st-row .sym { font-weight: 600; color: #9db7e4; transition: color 0.25s ease; }
+    .st-row .price { font-family: var(--mono); font-size: 12px; color: var(--muted); text-align: right; }
+    .st-row .chg { font-family: var(--mono); font-size: 11.5px; color: var(--green); text-align: right; }
+
+    .st-row.active { background: var(--blue-soft); }
+
+    .st-row.active .sym {
+      color: #cfe1ff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--blue);
+    }
+
+    /* cursor pointer that rides the active row */
+    .cursor-dot {
+      position: absolute;
+      width: 20px; height: 20px;
+      left: 152px;
+      transition: top 0.5s cubic-bezier(0.5, 0, 0.2, 1.3);
+      pointer-events: none;
+      z-index: 3;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+    }
+
+    .cursor-dot::before {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border: 2px solid var(--blue);
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    .cursor-dot.click::before { animation: ripple 0.7s ease-out; }
+
+    @keyframes ripple {
+      0% { transform: scale(0.35); opacity: 0.85; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    /* popup replica */
+    .popup {
+      position: absolute;
+      top: 244px; right: 0;
+      width: 272px;
+      background: #fff;
+      border-radius: 13px;
+      box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      color: #1a2233;
+      z-index: 4;
+      font-size: 13px;
+    }
+
+    .pp-head {
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      color: #fff;
+      padding: 13px 15px 11px;
+    }
+
+    .pp-head h3 { font-family: var(--body); font-size: 13.5px; font-weight: 600; letter-spacing: 0.1px; }
+    .pp-head p { font-size: 10.5px; opacity: 0.85; margin-top: 2px; }
+
+    .pp-body { padding: 12px 13px 11px; }
+
+    .pp-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: #9aa3b2;
+      margin-bottom: 8px;
+    }
+
+    .pp-opt {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: #f5f7fa;
+      border: 1px solid #e3e8ef;
+      border-radius: 9px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .pp-opt.on { background: #e8f0fe; border-color: #b9d2fb; }
+
+    .pp-chip {
+      width: 20px; height: 20px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .pp-chip.t { background: #2962ff; }
+    .pp-chip.s { background: #16a34a; }
+    .pp-chip.c { background: #f59e0b; }
+
+    .pp-name { flex: 1; font-size: 12px; font-weight: 500; }
+
+    .pp-switch {
+      position: relative;
+      width: 30px; height: 17px;
+      border-radius: 999px;
+      background: #cbd2dd;
+      transition: background 0.18s ease;
+      flex-shrink: 0;
+    }
+
+    .pp-switch::after {
+      content: "";
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      transition: transform 0.18s ease;
+    }
+
+    .pp-opt.on .pp-switch { background: #2563eb; }
+    .pp-opt.on .pp-switch::after { transform: translateX(13px); }
+
+    .pp-note { font-size: 9.5px; color: #6b7280; margin: 7px 1px 0; line-height: 1.45; }
+
+    .pp-short {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 9px;
+      padding: 8px 10px;
+      background: #f5f7fa;
+      border: 1px solid #e3e8ef;
+      border-radius: 9px;
+      font-size: 9.8px;
+      color: #6b7280;
+      line-height: 1.45;
+    }
+
+    .pp-short .kbd-w {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 600;
+      font-family: var(--mono);
+      color: #1a2233;
+      background: #fff;
+      border: 1px solid #e3e8ef;
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      padding: 0 5px;
+    }
+
+    /* opened-tab chips */
+    .chips {
+      position: absolute;
+      left: 0;
+      top: 348px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 11px;
+      z-index: 5;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--panel-2);
+      border: 1px solid var(--line-strong);
+      border-radius: 11px;
+      padding: 9px 15px 9px 11px;
+      font-size: 12.5px;
+      box-shadow: 0 18px 45px -15px rgba(0, 0, 0, 0.8);
+      transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .chip:nth-child(2) { margin-left: 16px; }
+
+    .chip .arrow {
+      font-family: var(--mono);
+      color: var(--blue);
+      font-size: 13px;
+      animation: nudge 1.6s ease-in-out infinite;
+    }
+
+    @keyframes nudge {
+      0%, 100% { transform: translateX(0); opacity: 0.65; }
+      50% { transform: translateX(4px); opacity: 1; }
+    }
+
+    .chip .pp-chip { width: 22px; height: 22px; }
+
+    .chip .lbl { color: var(--muted); font-size: 11px; }
+    .chip .val { font-family: var(--mono); font-size: 12px; color: var(--text); font-weight: 500; transition: opacity 0.25s; }
+    .chip .val.swap { opacity: 0; }
+
+    .chip.off { opacity: 0.3; filter: saturate(0.2); transform: translateX(-4px); }
+
+    /* ============================================================
+       Ticker tape
+    ============================================================ */
+    .tape {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.012);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tape-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: tape 46s linear infinite;
+    }
+
+    .tape:hover .tape-track { animation-play-state: paused; }
+
+    @keyframes tape {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .tape-set { display: flex; }
+
+    .tick {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 13px 26px;
+      border-right: 1px solid var(--line);
+      white-space: nowrap;
+      color: var(--muted);
+    }
+
+    .tick b { color: var(--text); font-weight: 600; }
+    .tick .up { color: var(--green); }
+    .tick .dn { color: var(--red); }
+
+    /* ============================================================
+       Sections / shared
+    ============================================================ */
+    section { position: relative; padding: 108px 0; }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: var(--blue);
+      opacity: 0.7;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(28px, 3.4vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.14;
+      margin-bottom: 16px;
+      max-width: 640px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 560px;
+    }
+
+    /* ============================================================
+       Features bento
+    ============================================================ */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+      margin-top: 54px;
+    }
+
+    .card {
+      grid-column: span 3;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.022), rgba(255, 255, 255, 0.006));
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      padding: 26px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+
+    .card.lg { grid-column: span 6; padding: 30px; }
+
+    .card .idx {
+      position: absolute;
+      top: 20px; right: 22px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--faint);
+    }
+
+    .card .icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--blue-soft);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: #7eaeff;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-bottom: 9px;
+    }
+
+    .card p { font-size: 13.8px; color: var(--muted); line-height: 1.62; }
+
+    /* flow diagram inside big card 1 */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .flow .node {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      padding: 7px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flow .node b { color: var(--text); font-weight: 600; }
+
+    .flow .src { border-color: rgba(245, 158, 11, 0.45); }
+
+    .flow-line {
+      flex: 1;
+      min-width: 34px;
+      height: 1px;
+      background: repeating-linear-gradient(90deg, var(--blue) 0 5px, transparent 5px 10px);
+      position: relative;
+      overflow: visible;
+      opacity: 0.8;
+    }
+
+    .flow-line::after {
+      content: "▸";
+      position: absolute;
+      right: -3px; top: 50%;
+      transform: translateY(-52%);
+      color: var(--blue);
+      font-size: 12px;
+    }
+
+    .flow .targets { display: flex; flex-direction: column; gap: 8px; }
+
+    /* keycap mini in big card 2 */
+    .mini-keys {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .keycap {
+      font-family: var(--mono);
+      font-weight: 600;
+      color: var(--text);
+      background: linear-gradient(180deg, #1b2541 0%, #111a31 100%);
+      border: 1px solid rgba(141, 163, 199, 0.3);
+      border-radius: 9px;
+      padding: 9px 16px;
+      font-size: 14px;
+      box-shadow: 0 4px 0 #0a1020, 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    }
+
+    .mini-keys .plus { color: var(--faint); font-family: var(--mono); }
+
+    .swap-pair {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-left: 18px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .swap-pair .sw { color: var(--blue); font-size: 15px; }
+
+    /* ============================================================
+       How it works
+    ============================================================ */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 54px;
+      counter-reset: step;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      padding: 28px 26px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent);
+      position: relative;
+    }
+
+    .step .num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--blue);
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-family: var(--display);
+      font-size: 17.5px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .step p { font-size: 13.8px; color: var(--muted); }
+
+    .step p a { color: #7eaeff; text-decoration: none; }
+    .step p a:hover { text-decoration: underline; }
+
+    /* ============================================================
+       Shortcut showcase
+    ============================================================ */
+    .shortcut-stage {
+      margin-top: 58px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        radial-gradient(ellipse 60% 90% at 50% -10%, rgba(37, 99, 235, 0.14), transparent),
+        var(--ink-2);
+      padding: 64px 30px 58px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .big-keys {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 38px;
+    }
+
+    .keycap.xl {
+      font-size: 22px;
+      padding: 18px 30px;
+      border-radius: 13px;
+      box-shadow: 0 7px 0 #0a1020, 0 1px 0 rgba(255, 255, 255, 0.14) inset, 0 18px 38px -10px rgba(0, 0, 0, 0.7);
+      animation: press 3.2s ease-in-out infinite;
+    }
+
+    .keycap.xl:last-child { animation-delay: 0.12s; }
+
+    .big-keys .plus { font-size: 20px; color: var(--faint); font-family: var(--mono); }
+
+    @keyframes press {
+      0%, 18%, 100% { transform: translateY(0); box-shadow: 0 7px 0 #0a1020, 0 1px 0 rgba(255,255,255,0.14) inset, 0 18px 38px -10px rgba(0,0,0,0.7); }
+      8% { transform: translateY(5px); box-shadow: 0 2px 0 #0a1020, 0 1px 0 rgba(255,255,255,0.14) inset, 0 10px 24px -10px rgba(0,0,0,0.7); }
+    }
+
+    .swap-cards {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .swap-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--panel-2);
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 14px 22px;
+      min-width: 235px;
+      text-align: left;
+    }
+
+    .swap-card .pp-chip { width: 28px; height: 28px; font-size: 13px; border-radius: 8px; }
+
+    .swap-card .t1 { font-size: 13.5px; font-weight: 600; }
+    .swap-card .t2 { font-family: var(--mono); font-size: 11px; color: var(--faint); }
+
+    .swap-arrows {
+      font-size: 24px;
+      color: var(--blue);
+      font-family: var(--mono);
+      animation: spinhint 3.2s ease-in-out infinite;
+    }
+
+    @keyframes spinhint {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      8% { transform: scale(1.25); opacity: 1; }
+    }
+
+    .stage-note {
+      margin-top: 30px;
+      font-size: 13.5px;
+      color: var(--faint);
+    }
+
+    .stage-note .mono { font-family: var(--mono); color: var(--muted); font-size: 12.5px; }
+
+    /* ============================================================
+       Privacy spec sheet
+    ============================================================ */
+    .spec {
+      margin-top: 54px;
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      overflow: hidden;
+    }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 26px;
+      font-family: var(--mono);
+      font-size: 13.5px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.008);
+    }
+
+    .spec-row:nth-child(odd) { background: rgba(255, 255, 255, 0.022); }
+    .spec-row:last-child { border-bottom: none; }
+
+    .spec-row .k { color: var(--muted); display: flex; align-items: center; gap: 12px; }
+    .spec-row .k::before { content: "›"; color: var(--blue); }
+
+    .spec-row .v { color: var(--text); font-weight: 500; text-align: right; }
+    .spec-row .v.zero { color: var(--green); }
+
+    .privacy-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 26px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #7eaeff;
+      text-decoration: none;
+    }
+
+    .privacy-link:hover { text-decoration: underline; }
+
+    /* ============================================================
+       FAQ
+    ============================================================ */
+    .faq-list { margin-top: 50px; max-width: 760px; }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.012);
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    details[open] { border-color: rgba(59, 130, 246, 0.4); }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 19px 24px;
+      font-family: var(--display);
+      font-size: 15.5px;
+      font-weight: 600;
+      letter-spacing: -0.1px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary .tg {
+      font-family: var(--mono);
+      color: var(--blue);
+      font-size: 17px;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    details[open] summary .tg { transform: rotate(45deg); }
+
+    details .a {
+      padding: 0 24px 20px;
+      font-size: 14.2px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+
+    details .a a { color: #7eaeff; text-decoration: none; }
+    details .a a:hover { text-decoration: underline; }
+
+    details .a code {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      padding: 1px 7px;
+      border-radius: 5px;
+    }
+
+    /* ============================================================
+       Final CTA + footer
+    ============================================================ */
+    .final {
+      text-align: center;
+      padding: 120px 0 130px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final::before {
+      content: "";
+      position: absolute;
+      width: 900px; height: 500px;
+      left: 50%; bottom: -240px;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse, rgba(37, 99, 235, 0.2), transparent 65%);
+      pointer-events: none;
+    }
+
+    .final h2 { margin: 0 auto 16px; max-width: 700px; }
+    .final .sub { margin: 0 auto 38px; }
+    .final .cta-row { justify-content: center; }
+
+    .final-meta {
+      margin-top: 26px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--faint);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 42px 0 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .foot-in {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .foot-brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 600; font-size: 15px; }
+
+    .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
+
+    .foot-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .foot-links a:hover { color: var(--text); }
+
+    .foot-credit {
+      width: 100%;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12.5px;
+      color: var(--faint);
+    }
+
+    .foot-credit b { color: var(--muted); font-weight: 500; }
+
+    /* ============================================================
+       Reveal animation
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ============================================================
+       Responsive
+    ============================================================ */
+    @media (max-width: 1020px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 70px; }
+      .hero { padding-top: 132px; }
+      .demo { min-height: 0; height: 560px; max-width: 640px; margin: 0 auto; width: 100%; }
+      .card, .card.lg { grid-column: span 6; }
+      .steps { grid-template-columns: 1fr; }
+      h2 { max-width: none; }
+    }
+
+    @media (max-width: 700px) {
+      section { padding: 76px 0; }
+      .nav-links { display: none; }
+      .hero { padding: 116px 0 64px; }
+      .card, .card.lg { grid-column: span 12; }
+      .demo { height: auto; }
+      .browser { position: relative; top: 0; width: 100%; }
+      .popup { position: relative; top: 0; margin: -46px 0 0 auto; right: -4px; }
+      .chips { position: relative; left: 0; top: 0; margin-top: 22px; }
+      .cursor-dot { display: none; }
+      .swap-cards { flex-direction: column; }
+      .swap-arrows { transform: rotate(90deg); }
+      .spec-row { grid-template-columns: 1fr; gap: 4px; padding: 15px 18px; }
+      .spec-row .v { text-align: left; padding-left: 22px; }
+      .foot-in { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-<body>
 
-  <header class="site-header">
-    <div class="wrap nav">
-      <a class="brand" href="index.html">
-        <img src="assets/img/icon48.png" alt="" width="28" height="28">
-        <span>Unlimited Watchlists</span>
+<body>
+  <div class="paper" aria-hidden="true"></div>
+
+  <!-- ============================ NAV ============================ -->
+  <nav id="nav">
+    <div class="nav-in">
+      <a class="brand" href="#">
+        <svg width="27" height="27" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#2563eb" />
+          <path d="M18 24h26M37 17l7 7-7 7" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M46 42H20m7-7-7 7 7 7" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Chartink Redirector
       </a>
-      <nav class="nav-links">
+      <div class="nav-links">
         <a href="#features">Features</a>
-        <a href="#chartink">Chartink import</a>
         <a href="#how">How it works</a>
-        <a href="#screenshots">Screenshots</a>
+        <a href="#shortcut">Shortcut</a>
+        <a href="#privacy">Privacy</a>
         <a href="#faq">FAQ</a>
-        <a href="privacy.html">Privacy</a>
-        <a class="btn btn-primary btn-sm" href="https://chromewebstore.google.com/detail/keodmnkjfjgmbhoniajobonkkmgmnmei" target="_blank" rel="noopener">Add to Chrome</a>
-      </nav>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
+        target="_blank" rel="noopener">Add to Chrome</a>
+    </div>
+  </nav>
+
+  <!-- ============================ HERO ============================ -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="pill"><span class="dot"></span> v1.12 on Chrome Web Store &nbsp;·&nbsp; <span class="star">★</span>&nbsp;<b>5.0</b></span>
+          <h1>From Chartink to <span class="stroke">TradingView</span> &amp; <span class="sc">Screener</span> — in one click.</h1>
+          <p class="lede">A featherweight Chrome extension for Indian stock-market research. Click any stock in your
+            Chartink screener and it's already open on the platforms you actually analyse with — <strong>no retyping
+            tickers, no tab chaos.</strong></p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
+              target="_blank" rel="noopener">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.8" />
+                <circle cx="12" cy="12" r="3.6" stroke="currentColor" stroke-width="1.8" />
+                <path d="M12 8.4h9M8.9 13.8 4.4 6.1M15.1 13.8l-4.5 7.8" stroke="currentColor" stroke-width="1.8" />
+              </svg>
+              Add to Chrome — it's free
+            </a>
+            <a class="btn btn-ghost" href="#how">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14m-6-6 6 6 6-6" />
+              </svg>
+              See how it works
+            </a>
+          </div>
+          <div class="hero-meta">
+            <span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2Z" stroke-linejoin="round"/></svg>
+              19 KB install
+            </span>
+            <span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z" stroke-linejoin="round"/></svg>
+              Zero data collection
+            </span>
+            <span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h17M12 3.5c-4.8 4.8-4.8 12.2 0 17 4.8-4.8 4.8-12.2 0-17Z"/></svg>
+              Works on chartink.com
+            </span>
+          </div>
+        </div>
+
+        <!-- demo composition -->
+        <div class="demo" aria-hidden="true">
+          <div class="glow"></div>
+
+          <div class="browser">
+            <div class="browser-bar">
+              <span class="b-dots"><i></i><i></i><i></i></span>
+              <span class="b-url"><b>chartink.com</b>/screener/f-o-stocks</span>
+            </div>
+            <div class="stock-table" id="stockTable">
+              <div class="st-head"><span>Stock</span><span style="text-align:right">Close</span><span style="text-align:right">%Chg</span></div>
+              <div class="st-row"><span class="sym">NESTLEIND</span><span class="price">1,438.30</span><span class="chg">+1.98%</span></div>
+              <div class="st-row"><span class="sym">SHREECEM</span><span class="price">23,850.00</span><span class="chg">+1.86%</span></div>
+              <div class="st-row"><span class="sym">HINDUNILVR</span><span class="price">2,169.50</span><span class="chg">+1.72%</span></div>
+              <div class="st-row"><span class="sym">AXISBANK</span><span class="price">1,314.50</span><span class="chg">+1.71%</span></div>
+              <div class="st-row"><span class="sym">KOTAKBANK</span><span class="price">388.10</span><span class="chg">+1.68%</span></div>
+            </div>
+            <div class="cursor-dot" id="cursorDot">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 3l7.5 16 2.2-6.3L21 10.5 5 3Z" fill="#fff" stroke="#0a1020" stroke-width="1.4" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="popup" id="popupCard">
+            <div class="pp-head">
+              <h3>Chartink Redirector</h3>
+              <p>Send stock links to your favorite platforms</p>
+            </div>
+            <div class="pp-body">
+              <p class="pp-label">Redirect to</p>
+              <div class="pp-opt on" data-chip="tv">
+                <span class="pp-chip t">T</span><span class="pp-name">TradingView</span><span class="pp-switch"></span>
+              </div>
+              <div class="pp-opt on" data-chip="sc">
+                <span class="pp-chip s">S</span><span class="pp-name">Screener.in</span><span class="pp-switch"></span>
+              </div>
+              <div class="pp-opt" data-chip="ci">
+                <span class="pp-chip c">C</span><span class="pp-name">Chartink</span><span class="pp-switch"></span>
+              </div>
+              <p class="pp-note">Tick one or more — each opens in its own reusable tab.</p>
+              <div class="pp-short">💡&nbsp;<span>Press <span class="kbd-w">Ctrl</span> + <span class="kbd-w">Q</span> to switch Screener ⇌ TradingView.</span></div>
+            </div>
+          </div>
+
+          <div class="chips">
+            <div class="chip" id="chip-tv">
+              <span class="arrow">→</span>
+              <span class="pp-chip t">T</span>
+              <span class="val" id="tvVal">NSE:NESTLEIND · chart</span>
+            </div>
+            <div class="chip" id="chip-sc">
+              <span class="arrow">→</span>
+              <span class="pp-chip s">S</span>
+              <span class="val" id="scVal">Nestle India · financials</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
-  <main>
+  <!-- ============================ TICKER ============================ -->
+  <div class="tape" aria-hidden="true">
+    <div class="tape-track" id="tapeTrack">
+      <div class="tape-set">
+        <span class="tick"><b>NIFTY 50</b> 24,852.15 <span class="up">▲ 0.62%</span></span>
+        <span class="tick"><b>SENSEX</b> 81,508.46 <span class="up">▲ 0.58%</span></span>
+        <span class="tick"><b>RELIANCE</b> 2,941.20 <span class="up">▲ 1.24%</span></span>
+        <span class="tick"><b>TCS</b> 3,856.55 <span class="dn">▼ 0.41%</span></span>
+        <span class="tick"><b>HDFCBANK</b> 1,746.85 <span class="up">▲ 1.15%</span></span>
+        <span class="tick"><b>INFY</b> 1,489.30 <span class="dn">▼ 0.22%</span></span>
+        <span class="tick"><b>ITC</b> 483.65 <span class="up">▲ 1.30%</span></span>
+        <span class="tick"><b>TATAMOTORS</b> 974.40 <span class="up">▲ 2.07%</span></span>
+        <span class="tick"><b>BAJFINANCE</b> 7,212.00 <span class="dn">▼ 0.83%</span></span>
+        <span class="tick"><b>BHARTIARTL</b> 1,621.75 <span class="up">▲ 0.94%</span></span>
+        <span class="tick"><b>SBIN</b> 818.90 <span class="up">▲ 0.47%</span></span>
+        <span class="tick"><b>ASIANPAINT</b> 2,874.10 <span class="dn">▼ 1.12%</span></span>
+        <span class="tick"><b>MARUTI</b> 12,480.25 <span class="up">▲ 0.71%</span></span>
+        <span class="tick"><b>NESTLEIND</b> 1,438.30 <span class="up">▲ 1.98%</span></span>
+      </div>
+    </div>
+  </div>
 
-    <!-- ============================ HERO ============================ -->
-    <section class="hero">
-      <div class="hero-glow" aria-hidden="true"></div>
-      <div class="wrap">
-        <span class="badge reveal"><span class="dot"></span>Now live on the Chrome Web Store</span>
-        <h1 class="reveal" style="--reveal-delay:.05s">
-          <span class="grad">Unlimited watchlists</span><br>for TradingView
-        </h1>
-        <p class="lead reveal" style="--reveal-delay:.1s">
-          A lightweight Chrome side panel for every symbol you track. Import stocks from
-          Chartink screeners or CSV, organize as many watchlists as you want, and open any
-          chart on TradingView with a single click.
-        </p>
-        <div class="hero-ctas reveal" style="--reveal-delay:.15s">
-          <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/keodmnkjfjgmbhoniajobonkkmgmnmei" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
-            Add to Chrome — it's free
-          </a>
-          <a class="btn btn-ghost" href="#how">See how it works</a>
-        </div>
-        <p class="hero-note reveal" style="--reveal-delay:.2s">No account · No tracking · Press <kbd>Space</kbd> to cycle symbols</p>
+  <!-- ============================ FEATURES ============================ -->
+  <section id="features">
+    <div class="wrap">
+      <p class="eyebrow reveal">01 / Features</p>
+      <h2 class="reveal">Built for the screener-to-chart workflow</h2>
+      <p class="sub reveal">You scan in Chartink, you chart in TradingView, you check fundamentals in Screener.
+        This extension removes every step in between.</p>
 
-        <div class="hero-shot reveal" style="--reveal-delay:.25s">
-          <div class="frame">
-            <div class="frame-bar">
-              <span class="dots"><span></span><span></span><span></span></span>
-              <span class="url">tradingview.com/chart</span>
-            </div>
-            <img src="assets/img/hero-chart-panel.png" alt="The Unlimited Watchlists side panel open next to a TradingView chart, with a symbol selected and its chart loaded" width="1919" height="1028">
+      <div class="bento">
+        <div class="card lg reveal">
+          <span class="idx">[01]</span>
+          <div class="icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h7"/><path d="M10 12c4 0 4-6 8-6h3m-3 0-2.5-2.5M21 6l-2.5 2.5"/><path d="M10 12c4 0 4 6 8 6h3m-3 0-2.5-2.5M21 18l-2.5 2.5"/></svg>
           </div>
+          <h3>Smart redirects</h3>
+          <p>Click any stock link on Chartink and it instantly opens on every platform you've selected — symbol
+            resolved, page loaded, zero typing.</p>
+          <div class="flow">
+            <span class="node src"><b>chartink</b>/NESTLEIND</span>
+            <span class="flow-line"></span>
+            <span class="targets">
+              <span class="node"><span class="pp-chip t" style="width:16px;height:16px;font-size:8.5px;border-radius:4px">T</span> tradingview.com/chart</span>
+              <span class="node"><span class="pp-chip s" style="width:16px;height:16px;font-size:8.5px;border-radius:4px">S</span> screener.in/company</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="card lg reveal">
+          <span class="idx">[02]</span>
+          <div class="icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.01M10.25 10h.01M14 10h.01M17.5 10h.01M6.5 14h11"/></svg>
+          </div>
+          <h3>One shortcut, two platforms</h3>
+          <p>On any Screener page, hit <b>Ctrl+Q</b> to jump to the TradingView chart of the same stock — and back
+            again. Your research flow never breaks.</p>
+          <div class="mini-keys">
+            <span class="keycap">Ctrl</span><span class="plus">+</span><span class="keycap">Q</span>
+            <span class="swap-pair">Screener <span class="sw">⇌</span> TradingView</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <span class="idx">[03]</span>
+          <div class="icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5h9M4 12h9M4 16.5h9"/><rect x="16.5" y="5.5" width="4" height="4" rx="1.2"/><rect x="16.5" y="14.5" width="4" height="4" rx="1.2"/><path d="m17.4 7.4.9.9 1.8-1.9"/></svg>
+          </div>
+          <h3>Pick your targets</h3>
+          <p>Tick any combination of TradingView, Screener.in and Chartink. One click fans out to all of them.</p>
+        </div>
+
+        <div class="card reveal">
+          <span class="idx">[04]</span>
+          <div class="icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2.5"/><path d="M3 9.5h8V5"/><path d="M14.5 13.5a3 3 0 1 1 .8 2.1m-.8-2.1v-2m0 2h2"/></svg>
+          </div>
+          <h3>Reusable tabs</h3>
+          <p>Each platform gets exactly one tab that's reused for every stock you click. No more 40-tab graveyards.</p>
+        </div>
+
+        <div class="card reveal">
+          <span class="idx">[05]</span>
+          <div class="icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 11h10"/><path d="M4 16h7"/><path d="M3.5 19.5h8"/><path d="m14.5 15.5 5.5 2.2-2.4 1 -1 2.4-2.1-5.6Z"/></svg>
+          </div>
+          <h3>Never lose your place</h3>
+          <p>The stock you clicked stays highlighted on Chartink, so you always know where you left your scan.</p>
+        </div>
+
+        <div class="card reveal">
+          <span class="idx">[06]</span>
+          <div class="icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6l-7-3Z"/><path d="m9.2 12 2 2 3.6-4"/></svg>
+          </div>
+          <h3>Private by design</h3>
+          <p>No servers, no analytics, no tracking. Your settings live in your browser and never leave it.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ============================ TRUST ============================ -->
-    <section class="trust">
-      <div class="wrap">
-        <div class="trust-row reveal">
-          <div class="trust-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-            Free forever
-          </div>
-          <div class="trust-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="22" y2="13"/><line x1="22" y1="8" x2="17" y2="13"/></svg>
-            No account needed
-          </div>
-          <div class="trust-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>
-            Data stays on your device
-          </div>
-          <div class="trust-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-            Built on Manifest V3
-          </div>
+  <!-- ============================ HOW IT WORKS ============================ -->
+  <section id="how" style="padding-top: 40px;">
+    <div class="wrap">
+      <p class="eyebrow reveal">02 / How it works</p>
+      <h2 class="reveal">Thirty seconds to set up</h2>
+
+      <div class="steps">
+        <div class="step reveal">
+          <span class="num">STEP — 01</span>
+          <h3>Install the extension</h3>
+          <p>Grab it free from the <a href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
+              target="_blank" rel="noopener">Chrome Web Store</a>. It's a 19&nbsp;KB install — lighter than a single
+            favicon.</p>
+        </div>
+        <div class="step reveal">
+          <span class="num">STEP — 02</span>
+          <h3>Tick your platforms</h3>
+          <p>Open the popup and toggle TradingView, Screener.in, Chartink — any combination you research with.</p>
+        </div>
+        <div class="step reveal">
+          <span class="num">STEP — 03</span>
+          <h3>Click any stock</h3>
+          <p>On any Chartink screener, click a stock. It opens everywhere you chose — each in its own reusable tab.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ============================ FEATURES ============================ -->
-    <section class="section" id="features">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="eyebrow">Features</span>
-          <h2>Everything a watchlist should do.<br>Without the limits.</h2>
-          <p>TradingView caps your watchlists — this side panel doesn't. Build as many as your strategy needs.</p>
+  <!-- ============================ SHORTCUT ============================ -->
+  <section id="shortcut" style="padding-top: 30px;">
+    <div class="wrap">
+      <p class="eyebrow reveal">03 / The shortcut</p>
+      <h2 class="reveal">Charts on one side, fundamentals on the other</h2>
+      <p class="sub reveal">Reading financials on Screener and want the chart? Watching a chart and want the numbers?
+        One keystroke swaps the view for the exact stock you're on.</p>
+
+      <div class="shortcut-stage reveal">
+        <div class="big-keys">
+          <span class="keycap xl">Ctrl</span>
+          <span class="plus">+</span>
+          <span class="keycap xl">Q</span>
         </div>
-
-        <div class="features-grid">
-          <div class="feature-card reveal">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
-            <h3>Unlimited watchlists</h3>
-            <p>Create, rename, reorder and delete as many watchlists as you need — right in the browser side panel.</p>
+        <div class="swap-cards">
+          <div class="swap-card">
+            <span class="pp-chip s">S</span>
+            <span>
+              <span class="t1">Screener.in</span><br>
+              <span class="t2">screener.in/company/NESTLEIND</span>
+            </span>
           </div>
-          <div class="feature-card reveal" style="--reveal-delay:.05s">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></span>
-            <h3>One-click charts</h3>
-            <p>Click any symbol to instantly open or switch its chart on TradingView. Press <kbd>Space</kbd> to cycle through the list.</p>
-          </div>
-          <div class="feature-card reveal" style="--reveal-delay:.1s">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></span>
-            <h3>Import from Chartink</h3>
-            <p>Pull every stock from a Chartink screener into a watchlist named after that screener — one button on the screener page.</p>
-          </div>
-          <div class="feature-card reveal">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
-            <h3>One-click re-sync</h3>
-            <p>Imported screeners remember their Chartink URL. Hit the re-sync button anytime to refresh the list with today's results.</p>
-          </div>
-          <div class="feature-card reveal" style="--reveal-delay:.05s">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
-            <h3>CSV import</h3>
-            <p>Bulk-add symbols from a CSV file. Imports create or update a watchlist named after the file.</p>
-          </div>
-          <div class="feature-card reveal" style="--reveal-delay:.1s">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-            <h3>Search, sort &amp; drag</h3>
-            <p>Filter symbols as you type, sort A–Z, and reorder watchlists or stocks with drag-and-drop.</p>
-          </div>
-          <div class="feature-card reveal">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-            <h3>Dark &amp; light themes</h3>
-            <p>Match your TradingView setup. Switch themes from Settings — your choice is remembered.</p>
-          </div>
-          <div class="feature-card reveal" style="--reveal-delay:.05s">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
-            <h3>Add from TradingView</h3>
-            <p>A floating "Add to Watchlist" button on TradingView pages saves the current symbol to any of your lists.</p>
-          </div>
-          <div class="feature-card reveal" style="--reveal-delay:.1s">
-            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-            <h3>Private by design</h3>
-            <p>Your watchlists never leave your device. No accounts, no analytics, no ads — ever.</p>
+          <span class="swap-arrows">⇌</span>
+          <div class="swap-card">
+            <span class="pp-chip t">T</span>
+            <span>
+              <span class="t1">TradingView</span><br>
+              <span class="t2">tradingview.com/chart · NSE:NESTLEIND</span>
+            </span>
           </div>
         </div>
+        <p class="stage-note">Works on any stock page — the extension reads the symbol and lands you on the same
+          company. <span class="mono">Mac: MacCtrl + Q</span></p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ============================ CHARTINK SPOTLIGHT ============================ -->
-    <section class="section" id="chartink">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="eyebrow">Chartink → TradingView</span>
-          <h2>From Chartink screener to TradingView chart in seconds</h2>
-          <p>Stop copying symbols by hand. Turn any Chartink scan into a living watchlist.</p>
-        </div>
+  <!-- ============================ PRIVACY ============================ -->
+  <section id="privacy" style="padding-top: 30px;">
+    <div class="wrap">
+      <p class="eyebrow reveal">04 / Privacy</p>
+      <h2 class="reveal">The spec sheet is short on purpose</h2>
+      <p class="sub reveal">Everything runs locally in your browser. There is no backend because none is needed.</p>
 
-        <div class="spotlight">
-          <div class="spot-steps">
-            <div class="spot-step reveal">
-              <span class="spot-num"></span>
-              <div>
-                <h3>Open any Chartink screener</h3>
-                <p>Run your scan on chartink.com as usual. The extension adds an <strong>Import to Watchlist</strong> button right next to Chartink's own toolbar.</p>
-              </div>
-            </div>
-            <div class="spot-step reveal" style="--reveal-delay:.08s">
-              <span class="spot-num"></span>
-              <div>
-                <h3>Click "Import to Watchlist"</h3>
-                <p>Every stock in the results is captured — including all pages — and saved into a watchlist named after the screener.</p>
-              </div>
-            </div>
-            <div class="spot-step reveal" style="--reveal-delay:.16s">
-              <span class="spot-num"></span>
-              <div>
-                <h3>Re-sync whenever you like</h3>
-                <p>The watchlist remembers its screener. One click on the re-sync icon pulls in today's fresh results — no re-importing.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="spot-visual reveal" style="--reveal-delay:.1s">
-            <div class="spot-strip">
-              <img src="assets/img/chartink-toolbar.png" alt="Chartink screener toolbar with the Import to Watchlist button added by the extension" width="1170" height="97" loading="lazy">
-            </div>
-            <div class="frame">
-              <div class="frame-bar">
-                <span class="dots"><span></span><span></span><span></span></span>
-                <span class="url">chartink.com/screener</span>
-              </div>
-              <img src="assets/img/chartink-screener.png" alt="A Chartink screener results table with the Import to Watchlist button" width="640" height="400" loading="lazy">
-            </div>
-          </div>
-        </div>
+      <div class="spec reveal">
+        <div class="spec-row"><span class="k">data collected</span><span class="v zero">0 bytes</span></div>
+        <div class="spec-row"><span class="k">external servers</span><span class="v zero">none</span></div>
+        <div class="spec-row"><span class="k">analytics &amp; tracking</span><span class="v zero">none</span></div>
+        <div class="spec-row"><span class="k">remote code</span><span class="v zero">none</span></div>
+        <div class="spec-row"><span class="k">permissions</span><span class="v">storage · chartink.com · screener.in · tradingview.com</span></div>
+        <div class="spec-row"><span class="k">install size</span><span class="v">~19 KB</span></div>
       </div>
-    </section>
 
-    <!-- ============================ HOW IT WORKS ============================ -->
-    <section class="section" id="how">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="eyebrow">How it works</span>
-          <h2>Up and running in under a minute</h2>
-        </div>
-        <div class="steps-grid">
-          <div class="step-card reveal">
-            <div class="step-n">STEP 1</div>
-            <h3>Open the side panel</h3>
-            <p>Install the extension and open it from Chrome's side panel — it sits beside any tab you're on.</p>
-          </div>
-          <div class="step-card reveal" style="--reveal-delay:.06s">
-            <div class="step-n">STEP 2</div>
-            <h3>Create a watchlist</h3>
-            <p>Click the + button to create a list. Make one per strategy, sector, or timeframe — there's no cap.</p>
-          </div>
-          <div class="step-card reveal" style="--reveal-delay:.12s">
-            <div class="step-n">STEP 3</div>
-            <h3>Add your symbols</h3>
-            <p>Import from a Chartink screener or CSV file, or use the floating Add button on any TradingView page.</p>
-          </div>
-          <div class="step-card reveal" style="--reveal-delay:.18s">
-            <div class="step-n">STEP 4</div>
-            <h3>Fly through charts</h3>
-            <p>Click a symbol to open its TradingView chart. Press <kbd>Space</kbd> to jump to the next one in the list.</p>
-          </div>
-        </div>
+      <a class="privacy-link reveal" href="privacy-policy.html">Read the full privacy policy
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================ FAQ ============================ -->
+  <section id="faq" style="padding-top: 30px;">
+    <div class="wrap">
+      <p class="eyebrow reveal">05 / FAQ</p>
+      <h2 class="reveal">Questions, answered</h2>
+
+      <div class="faq-list">
+        <details class="reveal">
+          <summary>Which websites does it work on? <span class="tg">+</span></summary>
+          <div class="a">Exactly three: <code>chartink.com</code> (where redirects start),
+            <code>tradingview.com</code> and <code>screener.in</code> (where they land, and where
+            <code>Ctrl+Q</code> switching works). The extension runs on no other sites.</div>
+        </details>
+        <details class="reveal">
+          <summary>Do I need a TradingView or Screener account? <span class="tg">+</span></summary>
+          <div class="a">No. The extension simply opens public stock pages on those platforms. If you're logged in,
+            you'll see your own layouts and watchlists as usual.</div>
+        </details>
+        <details class="reveal">
+          <summary>Why does it need permissions for those three sites? <span class="tg">+</span></summary>
+          <div class="a">To read the stock symbol from the page you're on and open the same stock on your chosen
+            platform. That's the entire job. There's no data collection — see the
+            <a href="privacy-policy.html">privacy policy</a>.</div>
+        </details>
+        <details class="reveal">
+          <summary>Can I open a stock on multiple platforms at once? <span class="tg">+</span></summary>
+          <div class="a">Yes — tick any combination of TradingView, Screener.in and Chartink in the popup. One click on
+            a Chartink stock opens it on all of them, each in its own reusable tab.</div>
+        </details>
+        <details class="reveal">
+          <summary>Is it free? <span class="tg">+</span></summary>
+          <div class="a">Completely free, no sign-up, no premium tier. Found a bug or have an idea?
+            <a href="mailto:alensarangsatheesh@gmail.com">Email the developer</a> — feedback drives the roadmap.</div>
+        </details>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ============================ SCREENSHOTS ============================ -->
-    <section class="section" id="screenshots">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="eyebrow">Screenshots</span>
-          <h2>Take a look around</h2>
-          <p>Light or dark — the panel stays out of your way and next to your charts.</p>
-        </div>
-
-        <div class="gallery-top">
-          <figure class="shot reveal">
-            <div class="frame">
-              <div class="frame-bar"><span class="dots"><span></span><span></span><span></span></span></div>
-              <img src="assets/img/panel-chart-dark.png" alt="Dark-themed side panel with a populated watchlist next to a TradingView chart" width="960" height="600" loading="lazy">
-            </div>
-            <figcaption>The side panel and your chart, side by side</figcaption>
-          </figure>
-          <figure class="shot reveal" style="--reveal-delay:.08s">
-            <div class="frame">
-              <div class="frame-bar"><span class="dots"><span></span><span></span><span></span></span></div>
-              <img src="assets/img/add-to-watchlist-dialog.png" alt="Add to Watchlist dialog on a TradingView chart, selecting which watchlists to save the symbol to" width="1280" height="800" loading="lazy">
-            </div>
-            <figcaption>Save the current symbol to any list</figcaption>
-          </figure>
-        </div>
-
-        <div class="gallery-panels">
-          <figure class="shot reveal">
-            <div class="frame">
-              <img src="assets/img/panel-watchlists-light.png" alt="Light-themed watchlists overview with re-sync buttons on Chartink-imported lists" width="465" height="965" loading="lazy">
-            </div>
-            <figcaption>All your lists — re-sync Chartink imports anytime</figcaption>
-          </figure>
-          <figure class="shot reveal" style="--reveal-delay:.08s">
-            <div class="frame">
-              <img src="assets/img/panel-stocks-light.png" alt="Light-themed stock list inside a watchlist with search, sort, export and delete controls" width="480" height="1021" loading="lazy">
-            </div>
-            <figcaption>Search, sort and manage symbols</figcaption>
-          </figure>
-          <figure class="shot reveal" style="--reveal-delay:.16s">
-            <div class="frame">
-              <img src="assets/img/settings-light.png" alt="Settings dialog with dark and light appearance toggle and a feedback button" width="465" height="967" loading="lazy">
-            </div>
-            <figcaption>Switch themes, send feedback</figcaption>
-          </figure>
-        </div>
+  <!-- ============================ FINAL CTA ============================ -->
+  <section class="final">
+    <div class="wrap">
+      <p class="eyebrow reveal" style="justify-content:center">06 / Get started</p>
+      <h2 class="reveal">Stop retyping tickers.</h2>
+      <p class="sub reveal">Join the traders who've made Chartink, TradingView and Screener feel like one app.</p>
+      <div class="cta-row reveal">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
+          target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="12" cy="12" r="3.6" stroke="currentColor" stroke-width="1.8" />
+            <path d="M12 8.4h9M8.9 13.8 4.4 6.1M15.1 13.8l-4.5 7.8" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+          Add to Chrome — it's free
+        </a>
       </div>
-    </section>
-
-    <!-- ============================ FAQ ============================ -->
-    <section class="section" id="faq">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="eyebrow">FAQ</span>
-          <h2>Frequently asked questions</h2>
-        </div>
-
-        <div class="faq-list">
-          <details class="faq-item reveal">
-            <summary>Is the extension free?
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-body">
-              <p>Yes — completely free, with no premium tier, no ads, and no account required. Unlimited means unlimited.</p>
-            </div>
-          </details>
-
-          <details class="faq-item reveal">
-            <summary>Where is my data stored? Do watchlists sync between devices?
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-body">
-              <p>Everything is stored locally in your browser using Chrome's <code>storage.local</code> API. Nothing is uploaded anywhere, which also means watchlists don't sync between devices. You can export a list to CSV and import it on another machine.</p>
-            </div>
-          </details>
-
-          <details class="faq-item reveal">
-            <summary>Does it work with a free TradingView account?
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-body">
-              <p>Yes. The extension simply opens and switches standard TradingView chart pages, so it works with any TradingView plan — including the free one. That's the point: TradingView's free plan limits your watchlists, this extension doesn't.</p>
-            </div>
-          </details>
-
-          <details class="faq-item reveal">
-            <summary>How does the Chartink import work?
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-body">
-              <p>Open any screener on chartink.com and click the <strong>Import to Watchlist</strong> button the extension adds to the page. All result symbols are saved into a watchlist named after the screener. The list keeps the screener's URL, so you can re-sync it with one click whenever the scan results change.</p>
-            </div>
-          </details>
-
-          <details class="faq-item reveal">
-            <summary>What data does the extension collect?
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-body">
-              <p>None. No analytics, no tracking, no accounts. The only network requests it makes are to chartink.com (when you import or re-sync a screener) and tradingview.com (when you open a chart). Read the full <a href="privacy.html">Privacy Policy</a>.</p>
-            </div>
-          </details>
-
-          <details class="faq-item reveal">
-            <summary>Is this affiliated with TradingView or Chartink?
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-body">
-              <p>No. This is an independent tool built by an individual developer. It is not affiliated with, endorsed by, or sponsored by TradingView or Chartink. All trademarks belong to their respective owners.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================ FINAL CTA ============================ -->
-    <section class="section">
-      <div class="wrap">
-        <div class="cta-band reveal">
-          <h2>Your watchlists, without the limits.</h2>
-          <p>Free, private, and one click away from your next chart.</p>
-          <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/keodmnkjfjgmbhoniajobonkkmgmnmei" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
-            Add to Chrome — it's free
-          </a>
-        </div>
-      </div>
-    </section>
-
-  </main>
+      <p class="final-meta reveal">v1.12 · 19 KB · no account needed</p>
+    </div>
+  </section>
 
   <!-- ============================ FOOTER ============================ -->
-  <footer class="site-footer">
-    <div class="wrap">
-      <div class="footer-inner">
-        <div class="dev">Developed by <strong>Alen Sarang Satheesh</strong></div>
-        <nav class="footer-links">
-          <a href="https://chromewebstore.google.com/detail/keodmnkjfjgmbhoniajobonkkmgmnmei" target="_blank" rel="noopener">Chrome Web Store</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=alensarangsatheesh@gmail.com&su=Unlimited%20Watchlists%20for%20TradingView%20%E2%80%93%20Feedback" target="_blank" rel="noopener">Contact / Feedback</a>
-        </nav>
+  <footer>
+    <div class="wrap foot-in">
+      <span class="foot-brand">
+        <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#2563eb" />
+          <path d="M18 24h26M37 17l7 7-7 7" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M46 42H20m7-7-7 7 7 7" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Chartink Redirector
+      </span>
+      <div class="foot-links">
+        <a href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb" target="_blank" rel="noopener">Chrome Web Store</a>
+        <a href="mailto:alensarangsatheesh@gmail.com">Report a bug</a>
+        <a href="privacy-policy.html">Privacy policy</a>
       </div>
-      <p class="footer-disclaimer">
-        Not affiliated with, endorsed by, or sponsored by TradingView or Chartink.
-        TradingView and Chartink are trademarks of their respective owners.
-      </p>
+      <div class="foot-credit">
+        <span>Developed by <b>Alen Sarang Satheesh</b></span>
+        <span>© 2026 · Not affiliated with Chartink, TradingView or Screener.in</span>
+      </div>
     </div>
   </footer>
 
   <script>
-    (function () {
-      var els = document.querySelectorAll('.reveal');
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-        els.forEach(function (el) { el.classList.add('in'); });
-        return;
-      }
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      els.forEach(function (el) { io.observe(el); });
-    })();
+    // nav scroll state
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 14);
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // hero demo: cycle active stock row, move cursor, update chips
+    const rows = [...document.querySelectorAll('#stockTable .st-row')];
+    const dot = document.getElementById('cursorDot');
+    const tvVal = document.getElementById('tvVal');
+    const scVal = document.getElementById('scVal');
+    const names = {
+      NESTLEIND: 'Nestle India', SHREECEM: 'Shree Cements', HINDUNILVR: 'Hind. Unilever',
+      AXISBANK: 'Axis Bank', KOTAKBANK: 'Kotak Mah. Bank'
+    };
+    let cur = 0;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function setRow(i) {
+      rows.forEach((r, j) => r.classList.toggle('active', j === i));
+      const sym = rows[i].querySelector('.sym').textContent;
+      const top = rows[i].offsetTop + rows[i].offsetHeight / 2 - 8;
+      dot.style.top = top + 'px';
+      dot.classList.remove('click');
+      void dot.offsetWidth;
+      dot.classList.add('click');
+      [ [tvVal, 'NSE:' + sym + ' · chart'], [scVal, (names[sym] || sym) + ' · financials'] ].forEach(([el, txt]) => {
+        el.classList.add('swap');
+        setTimeout(() => { el.textContent = txt; el.classList.remove('swap'); }, 250);
+      });
+    }
+    setRow(0);
+    // cycle only the rows that stay fully visible under the layered popup
+    if (!reduced) setInterval(() => { cur = (cur + 1) % 3; setRow(cur); }, 3000);
+
+    // popup replica toggles drive the chips
+    document.querySelectorAll('.pp-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        opt.classList.toggle('on');
+        const map = { tv: 'chip-tv', sc: 'chip-sc' };
+        const chip = document.getElementById(map[opt.dataset.chip]);
+        if (chip) chip.classList.toggle('off', !opt.classList.contains('on'));
+      });
+    });
+
+    // duplicate ticker content for a seamless loop
+    const track = document.getElementById('tapeTrack');
+    track.appendChild(track.querySelector('.tape-set').cloneNode(true));
   </script>
 </body>
+
 </html>
