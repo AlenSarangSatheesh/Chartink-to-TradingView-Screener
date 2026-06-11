@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Open Chartink Scan Results in TradingView (3 Ways)</title>
+  <meta name="description"
+    content="Stop retyping NSE tickers. Three ways to open Chartink screener results on TradingView charts — manual search, watchlist import, and a free one-click Chrome extension.">
+  <link rel="canonical"
+    href="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/how-to-open-chartink-scans-in-tradingview.html">
+  <meta name="theme-color" content="#070b15">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Open Chartink Scan Results in TradingView (3 Ways)">
+  <meta property="og:description"
+    content="Stop retyping NSE tickers. Three ways to open Chartink screener results on TradingView charts — manual search, watchlist import, and a free one-click Chrome extension.">
+  <meta property="og:url"
+    content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/how-to-open-chartink-scans-in-tradingview.html">
+  <meta property="og:image"
+    content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cpath d='M18 24h26M37 17l7 7-7 7' stroke='%23fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M46 42H20m7-7-7 7 7 7' stroke='%2393c5fd' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "How to Open Chartink Scan Results in TradingView (3 Ways)",
+    "description": "Three ways to open Chartink screener results on TradingView charts — manual search, watchlist import, and a free one-click Chrome extension.",
+    "datePublished": "2026-06-11",
+    "dateModified": "2026-06-11",
+    "author": { "@type": "Person", "name": "Alen Sarang Satheesh" },
+    "image": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/og-image.png",
+    "mainEntityOfPage": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/how-to-open-chartink-scans-in-tradingview.html"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chartink Redirector",
+        "item": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/" },
+      { "@type": "ListItem", "position": 2, "name": "How to open Chartink scans in TradingView",
+        "item": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/how-to-open-chartink-scans-in-tradingview.html" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can Chartink connect to TradingView directly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Chartink has no built-in TradingView integration — its stock links open Chartink's own dashboard. To land on a TradingView chart you either search the symbol manually, import a watchlist, or use a browser extension that rewrites the link for you."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a paid TradingView plan for this?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All three methods land on TradingView's standard chart page, which works on the free plan. If you are logged in, your own layout, indicators and drawings load as usual."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this work for Screener.in as well?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The Chartink Redirector extension can open each stock on TradingView and Screener.in at the same time, and Ctrl+Q switches between the chart and the fundamentals page for the same stock."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #070b15;
+      --ink-2: #0a1020;
+      --panel: #0c1326;
+      --panel-2: #101a33;
+      --line: rgba(141, 163, 199, 0.14);
+      --line-strong: rgba(141, 163, 199, 0.26);
+      --text: #e7edf8;
+      --muted: #97a4bd;
+      --faint: #5d6b87;
+      --blue: #3b82f6;
+      --blue-deep: #2563eb;
+      --blue-soft: rgba(59, 130, 246, 0.12);
+      --green: #2fd58c;
+      --red: #f4647d;
+      --amber: #f59e0b;
+      --display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+      --body: "Inter", "Segoe UI", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      --rad: 14px;
+      --rad-sm: 9px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--ink);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: rgba(59, 130, 246, 0.35); }
+    a { color: inherit; }
+
+    .paper {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 100%);
+    }
+
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+    /* nav (same as home) */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      transition: background 0.25s ease, border-color 0.25s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(7, 11, 21, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--line);
+    }
+
+    .nav-in {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 15px 28px;
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 16.5px;
+      letter-spacing: 0.1px;
+    }
+
+    .brand svg { display: block; }
+
+    .nav-links { display: flex; gap: 26px; margin-left: auto; }
+
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 14.5px;
+      text-decoration: none;
+      border-radius: var(--rad-sm);
+      padding: 12px 22px;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #3b82f6 0%, #2257d6 100%);
+      color: #fff;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.22) inset, 0 8px 24px -8px rgba(37, 99, 235, 0.65);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.22) inset, 0 12px 30px -8px rgba(37, 99, 235, 0.8);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .btn-ghost:hover { border-color: rgba(141, 163, 199, 0.5); background: rgba(255, 255, 255, 0.05); }
+    .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+    /* article scaffolding */
+    .article-head { padding: 152px 0 28px; position: relative; }
+
+    .article-head::before {
+      content: "";
+      position: absolute;
+      width: 700px; height: 700px;
+      top: -320px; right: -200px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.14) 0%, transparent 62%);
+      pointer-events: none;
+    }
+
+    .crumbs {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--faint);
+      margin-bottom: 24px;
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .crumbs a { color: var(--muted); text-decoration: none; }
+    .crumbs a:hover { color: var(--text); }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--blue); opacity: 0.7; }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(31px, 4vw, 46px);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+      max-width: 820px;
+      text-wrap: balance;
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 20px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--faint);
+      flex-wrap: wrap;
+    }
+
+    .article-body { max-width: 780px; padding: 26px 0 40px; position: relative; z-index: 1; }
+
+    .article-body > p { color: var(--muted); font-size: 16px; margin-bottom: 20px; max-width: 720px; }
+    .article-body > p strong, .method p strong { color: var(--text); font-weight: 600; }
+    .article-body a { color: #7eaeff; text-decoration: none; }
+    .article-body a:hover { text-decoration: underline; }
+
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(22px, 2.6vw, 29px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin: 52px 0 14px;
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      padding: 1px 7px;
+      border-radius: 5px;
+      color: var(--text);
+    }
+
+    /* method cards */
+    .method {
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent);
+      padding: 28px;
+      margin: 26px 0;
+    }
+
+    .method.best { border-color: rgba(47, 213, 140, 0.35); }
+
+    .method-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+
+    .method.best .method-tag { color: var(--green); }
+
+    .method h3 {
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-bottom: 10px;
+    }
+
+    .method p { font-size: 14.5px; color: var(--muted); margin-bottom: 12px; }
+    .method p:last-child { margin-bottom: 0; }
+
+    .method ol { margin: 14px 0 4px 20px; }
+    .method ol li { font-size: 14.5px; color: var(--muted); margin-bottom: 9px; }
+    .method ol li::marker { font-family: var(--mono); color: var(--blue); font-size: 12.5px; }
+
+    .verdict-line {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      flex-wrap: wrap;
+    }
+
+    .verdict-line b { color: var(--muted); font-weight: 500; }
+    .verdict-line .good { color: var(--green); }
+    .verdict-line .bad { color: var(--red); }
+
+    .keycap {
+      font-family: var(--mono);
+      font-weight: 600;
+      color: var(--text);
+      background: linear-gradient(180deg, #1b2541 0%, #111a31 100%);
+      border: 1px solid rgba(141, 163, 199, 0.3);
+      border-radius: 7px;
+      padding: 2px 10px;
+      font-size: 12.5px;
+      box-shadow: 0 3px 0 #0a1020, 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+      display: inline-block;
+      margin: 0 2px;
+    }
+
+    /* comparison table — spec-sheet style */
+    .cmp { border: 1px solid var(--line); border-radius: var(--rad); overflow: hidden; margin: 26px 0; }
+
+    .cmp-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 14px;
+      padding: 14px 22px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.008);
+      align-items: center;
+    }
+
+    .cmp-row:nth-child(odd) { background: rgba(255, 255, 255, 0.022); }
+    .cmp-row:last-child { border-bottom: none; }
+
+    .cmp-row.head {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--faint);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .cmp-row .k { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+    .cmp-row .good { color: var(--green); }
+    .cmp-row .bad { color: var(--red); }
+    .cmp-row .mid { color: var(--amber); }
+
+    /* FAQ */
+    details {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.012);
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    details[open] { border-color: rgba(59, 130, 246, 0.4); }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.1px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary .tg {
+      font-family: var(--mono);
+      color: var(--blue);
+      font-size: 17px;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    details[open] summary .tg { transform: rotate(45deg); }
+
+    details .a { padding: 0 22px 18px; font-size: 14.2px; color: var(--muted); line-height: 1.7; }
+
+    /* CTA band */
+    .cta-band {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        radial-gradient(ellipse 60% 90% at 50% -10%, rgba(37, 99, 235, 0.14), transparent),
+        var(--ink-2);
+      padding: 44px 34px;
+      text-align: center;
+      margin: 56px 0 30px;
+    }
+
+    .cta-band h2 { margin: 0 0 10px; }
+    .cta-band p { color: var(--muted); font-size: 15px; max-width: 520px; margin: 0 auto 26px; }
+    .cta-band .meta { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 18px; }
+
+    /* footer */
+    footer { border-top: 1px solid var(--line); padding: 42px 0 48px; position: relative; z-index: 1; margin-top: 60px; }
+
+    .foot-in { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .foot-brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 600; font-size: 15px; }
+    .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .foot-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
+    .foot-links a:hover { color: var(--text); }
+
+    .foot-credit {
+      width: 100%;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12.5px;
+      color: var(--faint);
+    }
+
+    .foot-credit b { color: var(--muted); font-weight: 500; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .article-head { padding-top: 118px; }
+      .method { padding: 22px 18px; }
+      .cmp-row { grid-template-columns: 1fr 1fr; row-gap: 6px; }
+      .cmp-row .k { grid-column: 1 / -1; }
+      .cmp-row.head { display: none; }
+      .cmp-row span[data-l]::before {
+        content: attr(data-l);
+        display: block;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--faint);
+        margin-bottom: 1px;
+      }
+      .foot-in { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="paper" aria-hidden="true"></div>
+
+  <nav id="nav">
+    <div class="nav-in">
+      <a class="brand" href="index.html">
+        <svg width="27" height="27" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#2563eb" />
+          <path d="M18 24h26M37 17l7 7-7 7" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M46 42H20m7-7-7 7 7 7" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Chartink Redirector
+      </a>
+      <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#how">How it works</a>
+        <a href="chartink-vs-tradingview.html">Chartink vs TradingView</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
+        target="_blank" rel="noopener">Add to Chrome</a>
+    </div>
+  </nav>
+
+  <header class="article-head">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">Chartink Redirector</a> <span>›</span> <span>Guide</span></p>
+      <p class="eyebrow">Guide — 01</p>
+      <h1>How to open Chartink scan results in TradingView</h1>
+      <p class="article-meta">
+        <span>UPDATED — 11 JUN 2026</span>
+        <span>READ — 6 MIN</span>
+        <span>LEVEL — BEGINNER</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="article-body wrap">
+    <p>Chartink runs the scan. TradingView draws the chart. The problem is the gap between them: Chartink's stock
+      links open Chartink's own dashboard, not the TradingView chart you actually want to read. So every scan turns
+      into the same ritual — read a symbol, switch tabs, type <code>NSE:SYMBOL</code> into TradingView's search, repeat
+      for every stock in the list.</p>
+    <p>There are three ways to close that gap. Two are built into the platforms themselves; one automates the whole
+      thing. Here's each, with the honest trade-offs.</p>
+
+    <h2 id="method-1">Method 1 — Search each symbol manually</h2>
+    <div class="method">
+      <span class="method-tag">No tools needed</span>
+      <h3>Retype the ticker in TradingView's symbol search</h3>
+      <ol>
+        <li>Run your scan on Chartink and note the stock symbol, e.g. <code>NESTLEIND</code>.</li>
+        <li>Switch to your TradingView tab and press <span class="keycap">/</span> or click the symbol box.</li>
+        <li>Type the symbol — pick the <code>NSE:</code> (or <code>BSE:</code>) listing from the dropdown.</li>
+        <li>Go back to Chartink for the next stock. Repeat.</li>
+      </ol>
+      <p>It works, and it's fine for one or two stocks. But a typical scan returns 15–40 results. At roughly ten
+        seconds per symbol you're spending five minutes a day on pure typing — and one fat-fingered ticker sends you
+        to the wrong company entirely.</p>
+      <div class="verdict-line"><b>Best for:</b> checking a single stock &nbsp;·&nbsp; <span class="good">zero
+          setup</span> &nbsp;·&nbsp; <span class="bad">slowest per stock, error-prone</span></div>
+    </div>
+
+    <h2 id="method-2">Method 2 — Import the scan as a TradingView watchlist</h2>
+    <div class="method">
+      <span class="method-tag">Bulk transfer</span>
+      <h3>Copy the symbols out, import a list into TradingView</h3>
+      <ol>
+        <li>On your Chartink scan results, copy the symbol column (or export the results table).</li>
+        <li>In a text editor, prefix every symbol with <code>NSE:</code> and join them with commas —
+          <code>NSE:NESTLEIND,NSE:AXISBANK,NSE:SHREECEM</code> — and save as a <code>.txt</code> file.</li>
+        <li>In TradingView, open the watchlist panel → <em>⋯ menu → Import list</em> and select the file.</li>
+        <li>Click through the imported watchlist to chart each stock.</li>
+      </ol>
+      <p>Good when you want the whole scan parked in TradingView for the session. The downsides: it's a multi-step
+        export every single time the scan updates, intraday scans go stale in minutes, and free TradingView accounts
+        only get one watchlist — importing can clutter or replace it.</p>
+      <div class="verdict-line"><b>Best for:</b> end-of-day scans you review in bulk &nbsp;·&nbsp; <span class="good">whole
+          list in one go</span> &nbsp;·&nbsp; <span class="bad">manual re-export every refresh</span></div>
+    </div>
+
+    <h2 id="method-3">Method 3 — One-click redirect with a free extension</h2>
+    <div class="method best">
+      <span class="method-tag">✦ Fastest</span>
+      <h3>Click the stock on Chartink, land on its TradingView chart</h3>
+      <p><a href="index.html">Chartink Redirector</a> is a free, 19&nbsp;KB Chrome extension built for exactly this
+        workflow. Once installed, every stock link on Chartink opens straight on TradingView — symbol already
+        resolved to the right NSE listing — instead of Chartink's own dashboard.</p>
+      <ol>
+        <li>Install it from the
+          <a href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb" target="_blank"
+            rel="noopener">Chrome Web Store</a> (free, no account).</li>
+        <li>Click the extension icon and tick <strong>TradingView</strong> — and, if you want fundamentals too,
+          <strong>Screener.in</strong>.</li>
+        <li>Click any stock in your scan. It opens on every platform you ticked, each in its own reusable tab — so
+          forty clicks still means two tabs, not forty.</li>
+      </ol>
+      <p>Bonus: on any Screener.in or TradingView page, <span class="keycap">Ctrl</span>+<span class="keycap">Q</span>
+        flips between the chart and the fundamentals page for the same stock. The stock you clicked stays highlighted
+        on Chartink, so you never lose your place in the scan.</p>
+      <div class="verdict-line"><b>Best for:</b> working through scans stock-by-stock &nbsp;·&nbsp; <span class="good">~1
+          second per stock, zero typing</span> &nbsp;·&nbsp; <span class="bad">Chrome/Edge only</span></div>
+    </div>
+
+    <h2 id="compare">The three methods, side by side</h2>
+    <div class="cmp">
+      <div class="cmp-row head"><span>Criteria</span><span>Manual search</span><span>Watchlist import</span><span>Chartink Redirector</span></div>
+      <div class="cmp-row"><span class="k">Time per stock</span><span data-l="Manual" class="bad">~10 s + typing</span><span data-l="Import" class="mid">fast after setup</span><span data-l="Redirector" class="good">~1 s, one click</span></div>
+      <div class="cmp-row"><span class="k">Setup required</span><span data-l="Manual" class="good">none</span><span data-l="Import" class="bad">every scan refresh</span><span data-l="Redirector" class="good">once, 30 seconds</span></div>
+      <div class="cmp-row"><span class="k">Live intraday scans</span><span data-l="Manual" class="mid">workable</span><span data-l="Import" class="bad">goes stale</span><span data-l="Redirector" class="good">always current</span></div>
+      <div class="cmp-row"><span class="k">Typo risk</span><span data-l="Manual" class="bad">high</span><span data-l="Import" class="mid">format errors</span><span data-l="Redirector" class="good">none</span></div>
+      <div class="cmp-row"><span class="k">Screener.in too</span><span data-l="Manual" class="bad">separate search</span><span data-l="Import" class="bad">not supported</span><span data-l="Redirector" class="good">same click + Ctrl+Q</span></div>
+      <div class="cmp-row"><span class="k">Cost</span><span data-l="Manual" class="good">free</span><span data-l="Import" class="good">free</span><span data-l="Redirector" class="good">free</span></div>
+    </div>
+
+    <p>If you only check the occasional stock, manual search is honestly fine. If you batch-review end-of-day scans,
+      the watchlist import earns its clunkiness. But if your workflow is the classic one — scan on Chartink, chart on
+      TradingView, fundamentals on <a href="chartink-vs-tradingview.html">whichever platform fits</a> — the redirect
+      extension removes the busywork entirely.</p>
+
+    <h2 id="faq">Quick questions</h2>
+    <details>
+      <summary>Can Chartink connect to TradingView directly? <span class="tg">+</span></summary>
+      <div class="a">No. Chartink has no built-in TradingView integration — its stock links open Chartink's own
+        dashboard. To land on a TradingView chart you either search the symbol manually, import a watchlist, or use a
+        browser extension that rewrites the link for you.</div>
+    </details>
+    <details>
+      <summary>Do I need a paid TradingView plan for this? <span class="tg">+</span></summary>
+      <div class="a">No. All three methods land on TradingView's standard chart page, which works on the free plan. If
+        you're logged in, your own layout, indicators and drawings load as usual.</div>
+    </details>
+    <details>
+      <summary>Does this work for Screener.in as well? <span class="tg">+</span></summary>
+      <div class="a">Yes. The Chartink Redirector extension can open each stock on TradingView and Screener.in at the
+        same time, and <code>Ctrl+Q</code> switches between the chart and the fundamentals page for the same stock.</div>
+    </details>
+
+    <div class="cta-band">
+      <h2>Try the one-click version</h2>
+      <p>Free, 19 KB, no account, no data collection. Your next Chartink scan opens itself.</p>
+      <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
+        target="_blank" rel="noopener">Add Chartink Redirector to Chrome</a>
+      <p class="meta">★ 5.0 on the Chrome Web Store · works on chartink.com, tradingview.com, screener.in</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap foot-in">
+      <span class="foot-brand">
+        <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#2563eb" />
+          <path d="M18 24h26M37 17l7 7-7 7" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M46 42H20m7-7-7 7 7 7" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Chartink Redirector
+      </span>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb" target="_blank" rel="noopener">Chrome Web Store</a>
+        <a href="chartink-vs-tradingview.html">Chartink vs TradingView</a>
+        <a href="privacy-policy.html">Privacy policy</a>
+      </div>
+      <div class="foot-credit">
+        <span>Developed by <b>Alen Sarang Satheesh</b></span>
+        <span>© 2026 · Not affiliated with Chartink, TradingView or Screener.in</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 14);
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+
+</html>

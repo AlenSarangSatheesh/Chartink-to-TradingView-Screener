@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chartink Redirector — From Chartink to TradingView &amp; Screener in one click</title>
+  <title>Chartink to TradingView &amp; Screener Chrome Extension — Chartink Redirector</title>
   <meta name="description"
     content="A featherweight Chrome extension for Indian stock-market research. Click any stock on Chartink and it opens instantly on TradingView and Screener.in. Switch platforms with Ctrl+Q. No data collection.">
   <link rel="canonical" href="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/">
@@ -12,7 +12,7 @@
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Chartink Redirector — From Chartink to TradingView &amp; Screener in one click">
+  <meta property="og:title" content="Chartink to TradingView &amp; Screener Chrome Extension — Chartink Redirector">
   <meta property="og:description"
     content="Click any stock on Chartink and it opens instantly on TradingView and Screener.in. Switch platforms with Ctrl+Q. No data collection.">
   <meta property="og:url" content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/">
@@ -32,6 +32,8 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Chartink to TradingView/Screener",
+    "alternateName": "Chartink Redirector",
+    "description": "Free Chrome extension for Indian stock-market research. Click any stock on Chartink and it opens instantly on TradingView and Screener.in. Switch platforms with Ctrl+Q. No data collection.",
     "operatingSystem": "Chrome",
     "applicationCategory": "BrowserApplication",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -39,6 +41,55 @@
     "url": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/",
     "downloadUrl": "https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb",
     "author": { "@type": "Person", "name": "Alen Sarang Satheesh" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Which websites does it work on?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Exactly three: chartink.com (where redirects start), tradingview.com and screener.in (where they land, and where Ctrl+Q switching works). The extension runs on no other sites."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a TradingView or Screener account?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The extension simply opens public stock pages on those platforms. If you're logged in, you'll see your own layouts and watchlists as usual."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does it need permissions for those three sites?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To read the stock symbol from the page you're on and open the same stock on your chosen platform. That's the entire job. There's no data collection — see the privacy policy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I open a stock on multiple platforms at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — tick any combination of TradingView, Screener.in and Chartink in the popup. One click on a Chartink stock opens it on all of them, each in its own reusable tab."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Completely free, no sign-up, no premium tier. Found a bug or have an idea? Email the developer — feedback drives the roadmap."
+        }
+      }
+    ]
   }
   </script>
 
@@ -1035,6 +1086,59 @@
     }
 
     /* ============================================================
+       Guides
+    ============================================================ */
+    .guides {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 54px;
+    }
+
+    .guide-card {
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      padding: 28px 26px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent);
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .guide-card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+
+    .guide-card .num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--blue);
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .guide-card h3 {
+      font-family: var(--display);
+      font-size: 17.5px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .guide-card p { font-size: 13.8px; color: var(--muted); }
+
+    .guide-card .more {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #7eaeff;
+    }
+
+    .guide-card:hover .more { text-decoration: underline; }
+
+    /* ============================================================
        Final CTA + footer
     ============================================================ */
     .final {
@@ -1148,6 +1252,7 @@
       .cursor-dot { display: none; }
       .swap-cards { flex-direction: column; }
       .swap-arrows { transform: rotate(90deg); }
+      .guides { grid-template-columns: 1fr; }
       .spec-row { grid-template-columns: 1fr; gap: 4px; padding: 15px 18px; }
       .spec-row .v { text-align: left; padding-left: 22px; }
       .foot-in { flex-direction: column; align-items: flex-start; }
@@ -1175,6 +1280,7 @@
         <a href="#shortcut">Shortcut</a>
         <a href="#privacy">Privacy</a>
         <a href="#faq">FAQ</a>
+        <a href="#guides">Guides</a>
       </div>
       <a class="btn btn-primary btn-sm" href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
         target="_blank" rel="noopener">Add to Chrome</a>
@@ -1513,10 +1619,37 @@
     </div>
   </section>
 
+  <!-- ============================ GUIDES ============================ -->
+  <section id="guides" style="padding-top: 30px;">
+    <div class="wrap">
+      <p class="eyebrow reveal">06 / Guides</p>
+      <h2 class="reveal">Go deeper into the workflow</h2>
+      <p class="sub reveal">Short, practical reads on making Chartink, TradingView and Screener.in behave like one
+        research stack.</p>
+
+      <div class="guides">
+        <a class="guide-card reveal" href="how-to-open-chartink-scans-in-tradingview.html">
+          <span class="num">GUIDE — 01</span>
+          <h3>How to open Chartink scan results in TradingView</h3>
+          <p>Three ways to get from a Chartink scan to a TradingView chart — from manual ticker retyping to a
+            one-click redirect that does it for you.</p>
+          <span class="more">Read the guide →</span>
+        </a>
+        <a class="guide-card reveal" href="chartink-vs-tradingview.html">
+          <span class="num">GUIDE — 02</span>
+          <h3>Chartink vs TradingView: which should Indian traders use?</h3>
+          <p>An honest comparison of India's favourite screener and the world's favourite charting platform — and
+            why most traders end up running both.</p>
+          <span class="more">Read the comparison →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============================ FINAL CTA ============================ -->
   <section class="final">
     <div class="wrap">
-      <p class="eyebrow reveal" style="justify-content:center">06 / Get started</p>
+      <p class="eyebrow reveal" style="justify-content:center">07 / Get started</p>
       <h2 class="reveal">Stop retyping tickers.</h2>
       <p class="sub reveal">Join the traders who've made Chartink, TradingView and Screener feel like one app.</p>
       <div class="cta-row reveal">
@@ -1547,6 +1680,8 @@
       </span>
       <div class="foot-links">
         <a href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb" target="_blank" rel="noopener">Chrome Web Store</a>
+        <a href="how-to-open-chartink-scans-in-tradingview.html">Chartink → TradingView guide</a>
+        <a href="chartink-vs-tradingview.html">Chartink vs TradingView</a>
         <a href="mailto:alensarangsatheesh@gmail.com">Report a bug</a>
         <a href="privacy-policy.html">Privacy policy</a>
       </div>

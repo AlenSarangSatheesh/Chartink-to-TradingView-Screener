@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chartink vs TradingView (2026): Which Should Indian Traders Use?</title>
+  <meta name="description"
+    content="Chartink or TradingView for Indian stocks? An honest 2026 comparison of screening, charting, alerts and pricing — and why most NSE traders end up using both together.">
+  <link rel="canonical"
+    href="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/chartink-vs-tradingview.html">
+  <meta name="theme-color" content="#070b15">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Chartink vs TradingView (2026): Which Should Indian Traders Use?">
+  <meta property="og:description"
+    content="An honest comparison of screening, charting, alerts and pricing — and why most NSE traders end up using both together.">
+  <meta property="og:url"
+    content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/chartink-vs-tradingview.html">
+  <meta property="og:image"
+    content="https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cpath d='M18 24h26M37 17l7 7-7 7' stroke='%23fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M46 42H20m7-7-7 7 7 7' stroke='%2393c5fd' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Chartink vs TradingView (2026): Which Should Indian Traders Use?",
+    "description": "An honest comparison of screening, charting, alerts and pricing for Indian stock traders — and why most NSE traders end up using both platforms together.",
+    "datePublished": "2026-06-11",
+    "dateModified": "2026-06-11",
+    "author": { "@type": "Person", "name": "Alen Sarang Satheesh" },
+    "image": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/og-image.png",
+    "mainEntityOfPage": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/chartink-vs-tradingview.html"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chartink Redirector",
+        "item": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/" },
+      { "@type": "ListItem", "position": 2, "name": "Chartink vs TradingView",
+        "item": "https://alensarangsatheesh.github.io/Chartink-to-TradingView-Screener/chartink-vs-tradingview.html" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Chartink better than TradingView?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They solve different problems. Chartink is the stronger stock screener for NSE/BSE — its scan language and community scans are built around Indian markets. TradingView has far stronger charting, drawing tools and alerts. Most Indian traders scan on Chartink and chart on TradingView."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use Chartink and TradingView together?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — that combination is the standard Indian retail workflow: run scans on Chartink, then analyse each result on TradingView. A free Chrome extension like Chartink Redirector removes the friction by opening every Chartink stock link directly on its TradingView chart."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Chartink free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Chartink's core screener and community scans are free to use. Paid plans add real-time scanning, more alerts and other power features. TradingView likewise has a capable free plan with paid tiers for more indicators, layouts and alerts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does TradingView have a screener for Indian stocks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, TradingView's screener covers NSE and BSE stocks and is good for fundamental and simple technical filters. But Chartink's condition-based scan builder and its huge library of community-made NSE scans remain the reason most Indian technical traders screen there first."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #070b15;
+      --ink-2: #0a1020;
+      --panel: #0c1326;
+      --panel-2: #101a33;
+      --line: rgba(141, 163, 199, 0.14);
+      --line-strong: rgba(141, 163, 199, 0.26);
+      --text: #e7edf8;
+      --muted: #97a4bd;
+      --faint: #5d6b87;
+      --blue: #3b82f6;
+      --blue-deep: #2563eb;
+      --blue-soft: rgba(59, 130, 246, 0.12);
+      --green: #2fd58c;
+      --red: #f4647d;
+      --amber: #f59e0b;
+      --display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+      --body: "Inter", "Segoe UI", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+      --rad: 14px;
+      --rad-sm: 9px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--ink);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: rgba(59, 130, 246, 0.35); }
+    a { color: inherit; }
+
+    .paper {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 100%);
+    }
+
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      transition: background 0.25s ease, border-color 0.25s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(7, 11, 21, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--line);
+    }
+
+    .nav-in {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 15px 28px;
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 16.5px;
+      letter-spacing: 0.1px;
+    }
+
+    .brand svg { display: block; }
+    .nav-links { display: flex; gap: 26px; margin-left: auto; }
+
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 14.5px;
+      text-decoration: none;
+      border-radius: var(--rad-sm);
+      padding: 12px 22px;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #3b82f6 0%, #2257d6 100%);
+      color: #fff;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.22) inset, 0 8px 24px -8px rgba(37, 99, 235, 0.65);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.22) inset, 0 12px 30px -8px rgba(37, 99, 235, 0.8);
+    }
+
+    .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+    .article-head { padding: 152px 0 28px; position: relative; }
+
+    .article-head::before {
+      content: "";
+      position: absolute;
+      width: 700px; height: 700px;
+      top: -320px; right: -200px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.14) 0%, transparent 62%);
+      pointer-events: none;
+    }
+
+    .crumbs {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--faint);
+      margin-bottom: 24px;
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .crumbs a { color: var(--muted); text-decoration: none; }
+    .crumbs a:hover { color: var(--text); }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--blue); opacity: 0.7; }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(31px, 4vw, 46px);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+      max-width: 860px;
+      text-wrap: balance;
+    }
+
+    h1 .ci { color: var(--amber); }
+    h1 .tv { color: #5d9bff; }
+
+    .article-meta {
+      display: flex;
+      gap: 20px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--faint);
+      flex-wrap: wrap;
+    }
+
+    /* versus banner */
+    .versus {
+      display: flex;
+      align-items: stretch;
+      gap: 18px;
+      margin: 36px 0 8px;
+      max-width: 780px;
+      flex-wrap: wrap;
+    }
+
+    .vs-card {
+      flex: 1;
+      min-width: 240px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--rad);
+      background: var(--panel-2);
+      padding: 20px 22px;
+    }
+
+    .vs-card .chip {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .vs-card.ci .chip { background: #f59e0b; }
+    .vs-card.tv .chip { background: #2962ff; }
+
+    .vs-card h3 { font-family: var(--display); font-size: 16.5px; font-weight: 600; margin-bottom: 4px; }
+    .vs-card p { font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+
+    .vs-mid {
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 15px;
+      color: var(--blue);
+      padding: 0 4px;
+    }
+
+    .article-body { max-width: 780px; padding: 26px 0 40px; position: relative; z-index: 1; }
+    .article-body > p { color: var(--muted); font-size: 16px; margin-bottom: 20px; max-width: 720px; }
+    .article-body > p strong { color: var(--text); font-weight: 600; }
+    .article-body a { color: #7eaeff; text-decoration: none; }
+    .article-body a:hover { text-decoration: underline; }
+    .article-body ul { margin: 0 0 20px 20px; }
+    .article-body ul li { color: var(--muted); font-size: 15px; margin-bottom: 10px; }
+    .article-body ul li::marker { color: var(--blue); }
+    .article-body ul li strong { color: var(--text); font-weight: 600; }
+
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(22px, 2.6vw, 29px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin: 52px 0 14px;
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      padding: 1px 7px;
+      border-radius: 5px;
+      color: var(--text);
+    }
+
+    /* TLDR verdict panel */
+    .tldr {
+      border: 1px solid rgba(47, 213, 140, 0.35);
+      border-radius: var(--rad);
+      background: linear-gradient(180deg, rgba(47, 213, 140, 0.05), transparent);
+      padding: 24px 26px;
+      margin: 26px 0;
+    }
+
+    .tldr .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--green);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .tldr p { font-size: 15px; color: var(--muted); }
+    .tldr p strong { color: var(--text); font-weight: 600; }
+
+    /* comparison table */
+    .cmp { border: 1px solid var(--line); border-radius: var(--rad); overflow: hidden; margin: 26px 0; }
+
+    .cmp-row {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1.1fr;
+      gap: 14px;
+      padding: 14px 22px;
+      font-size: 13.2px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.008);
+      align-items: center;
+      color: var(--muted);
+    }
+
+    .cmp-row:nth-child(odd) { background: rgba(255, 255, 255, 0.022); }
+    .cmp-row:last-child { border-bottom: none; }
+
+    .cmp-row.head {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--faint);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .cmp-row.head .ci { color: var(--amber); }
+    .cmp-row.head .tv { color: #5d9bff; }
+
+    .cmp-row .k { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+    .cmp-row .win { color: var(--green); }
+
+    /* FAQ */
+    details {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.012);
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    details[open] { border-color: rgba(59, 130, 246, 0.4); }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.1px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary .tg {
+      font-family: var(--mono);
+      color: var(--blue);
+      font-size: 17px;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    details[open] summary .tg { transform: rotate(45deg); }
+    details .a { padding: 0 22px 18px; font-size: 14.2px; color: var(--muted); line-height: 1.7; }
+    details .a a { color: #7eaeff; text-decoration: none; }
+    details .a a:hover { text-decoration: underline; }
+
+    .cta-band {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        radial-gradient(ellipse 60% 90% at 50% -10%, rgba(37, 99, 235, 0.14), transparent),
+        var(--ink-2);
+      padding: 44px 34px;
+      text-align: center;
+      margin: 56px 0 30px;
+    }
+
+    .cta-band h2 { margin: 0 0 10px; }
+    .cta-band p { color: var(--muted); font-size: 15px; max-width: 540px; margin: 0 auto 26px; }
+    .cta-band .meta { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 18px; }
+
+    footer { border-top: 1px solid var(--line); padding: 42px 0 48px; position: relative; z-index: 1; margin-top: 60px; }
+    .foot-in { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .foot-brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 600; font-size: 15px; }
+    .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .foot-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
+    .foot-links a:hover { color: var(--text); }
+
+    .foot-credit {
+      width: 100%;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12.5px;
+      color: var(--faint);
+    }
+
+    .foot-credit b { color: var(--muted); font-weight: 500; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .article-head { padding-top: 118px; }
+      .versus { flex-direction: column; }
+      .vs-mid { padding: 2px 0; }
+      .cmp-row { grid-template-columns: 1fr; row-gap: 5px; padding: 14px 18px; }
+      .cmp-row.head { display: none; }
+      .cmp-row span[data-l]::before {
+        content: attr(data-l);
+        display: inline-block;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--faint);
+        margin-right: 8px;
+        min-width: 86px;
+      }
+      .foot-in { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="paper" aria-hidden="true"></div>
+
+  <nav id="nav">
+    <div class="nav-in">
+      <a class="brand" href="index.html">
+        <svg width="27" height="27" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#2563eb" />
+          <path d="M18 24h26M37 17l7 7-7 7" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M46 42H20m7-7-7 7 7 7" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Chartink Redirector
+      </a>
+      <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#how">How it works</a>
+        <a href="how-to-open-chartink-scans-in-tradingview.html">Scan-to-chart guide</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
+        target="_blank" rel="noopener">Add to Chrome</a>
+    </div>
+  </nav>
+
+  <header class="article-head">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">Chartink Redirector</a> <span>›</span> <span>Comparison</span></p>
+      <p class="eyebrow">Guide — 02</p>
+      <h1><span class="ci">Chartink</span> vs <span class="tv">TradingView</span>: which should Indian traders use?</h1>
+      <p class="article-meta">
+        <span>UPDATED — 11 JUN 2026</span>
+        <span>READ — 7 MIN</span>
+        <span>MARKETS — NSE / BSE</span>
+      </p>
+
+      <div class="versus" aria-hidden="true">
+        <div class="vs-card ci">
+          <span class="chip">C</span>
+          <h3>Chartink</h3>
+          <p>india-first stock screener · scan engine · alerts</p>
+        </div>
+        <span class="vs-mid">⚡</span>
+        <div class="vs-card tv">
+          <span class="chip">T</span>
+          <h3>TradingView</h3>
+          <p>global charting platform · drawing tools · ideas</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="article-body wrap">
+    <p>Search this question on any Indian trading forum and you'll find the same argument running in circles. It's
+      the wrong question — <strong>Chartink and TradingView aren't really competitors.</strong> One is a screener
+      that happens to have charts; the other is a charting platform that happens to have a screener. The honest
+      comparison is about which job each one wins.</p>
+
+    <div class="tldr">
+      <span class="tag">TL;DR — the short verdict</span>
+      <p><strong>Scan on Chartink, chart on TradingView.</strong> Chartink's condition-based scan engine and its
+        library of community scans are unmatched for NSE/BSE screening. TradingView's charts, drawing tools and
+        alerts are in a different league to Chartink's. Most serious Indian retail traders run both — the only real
+        cost is the tab-juggling between them, <a href="#together">which is fixable</a>.</p>
+    </div>
+
+    <h2 id="chartink-wins">Where Chartink wins</h2>
+    <ul>
+      <li><strong>The scan engine.</strong> Chartink's condition builder ("latest close greater than latest sma(20)…")
+        lets you express almost any technical setup over every NSE/BSE stock at once — no coding, no spreadsheet
+        exports. This is the single feature that keeps Indian traders on the platform.</li>
+      <li><strong>Community scans.</strong> Thousands of ready-made screeners — breakout setups, volume shockers,
+        52-week-high lists — shared and refined by other Indian traders. You can fork any of them and tweak the
+        conditions.</li>
+      <li><strong>India-first coverage.</strong> Sector groupings, F&amp;O filters and index constituents all reflect
+        how the Indian market is actually organised, because the whole product is built for it.</li>
+      <li><strong>Scan-based alerts.</strong> Get notified when any stock newly satisfies your scan conditions —
+        effectively an alert on a whole strategy, not just a single stock's price level.</li>
+    </ul>
+
+    <h2 id="tradingview-wins">Where TradingView wins</h2>
+    <ul>
+      <li><strong>Charting, by a mile.</strong> Indicator library, multi-timeframe layouts, bar replay, and drawing
+        tools that survive across sessions and devices. Chartink's charts are serviceable; nobody calls them the
+        reason they use Chartink.</li>
+      <li><strong>Price alerts and watchlists.</strong> Fine-grained alerts on price, indicators and trendlines,
+        delivered to app and email, with watchlists that sync everywhere.</li>
+      <li><strong>Global markets and ideas.</strong> If you also watch US stocks, crypto or commodities, it's all in
+        the same workspace, alongside published trade ideas from a worldwide community.</li>
+      <li><strong>Pine Script.</strong> Custom indicators and strategy backtesting, with a massive open library of
+        community scripts.</li>
+    </ul>
+
+    <h2 id="table">Feature by feature</h2>
+    <div class="cmp">
+      <div class="cmp-row head"><span>Criteria</span><span class="ci">Chartink</span><span class="tv">TradingView</span></div>
+      <div class="cmp-row"><span class="k">Built for</span><span data-l="Chartink">screening NSE/BSE stocks</span><span data-l="TradingView">charting any market</span></div>
+      <div class="cmp-row"><span class="k">Technical screener</span><span data-l="Chartink" class="win">condition builder + community scans</span><span data-l="TradingView">good filters, less scan depth for NSE setups</span></div>
+      <div class="cmp-row"><span class="k">Charting</span><span data-l="Chartink">basic, gets the job done</span><span data-l="TradingView" class="win">industry standard</span></div>
+      <div class="cmp-row"><span class="k">Alerts</span><span data-l="Chartink" class="win">on entire scan conditions</span><span data-l="TradingView" class="win">on price, indicators, drawings</span></div>
+      <div class="cmp-row"><span class="k">Markets</span><span data-l="Chartink">NSE / BSE only</span><span data-l="TradingView" class="win">global — stocks, crypto, forex, commodities</span></div>
+      <div class="cmp-row"><span class="k">Custom scripting</span><span data-l="Chartink">no — condition builder only</span><span data-l="TradingView" class="win">Pine Script + backtesting</span></div>
+      <div class="cmp-row"><span class="k">Pricing</span><span data-l="Chartink">free core, paid plans for real-time power features</span><span data-l="TradingView">free plan, paid tiers for more indicators/alerts/layouts</span></div>
+      <div class="cmp-row"><span class="k">Best for</span><span data-l="Chartink">finding candidates</span><span data-l="TradingView">analysing candidates</span></div>
+    </div>
+
+    <p>Notice the pattern: Chartink's wins are all about <strong>finding</strong> stocks, TradingView's are all about
+      <strong>analysing</strong> them. Which is why "which one should I use?" usually resolves to "both, in
+      sequence."</p>
+
+    <h2 id="together">The real workflow: use both — without the tab-juggling</h2>
+    <p>The standard routine looks like this: run your scan on Chartink, get 20 results, then check each one's chart
+      on TradingView before deciding anything. The painful part is the middle — Chartink's stock links open
+      Chartink's own dashboard, so for every single result you end up retyping <code>NSE:SYMBOL</code> into
+      TradingView's search box. Twenty results, twenty searches.</p>
+    <p>That's the gap <a href="index.html">Chartink Redirector</a> closes. It's a free 19&nbsp;KB Chrome extension
+      that rewires Chartink's stock links: click a scan result and it opens directly on the stock's TradingView
+      chart — and, if you want, on its Screener.in fundamentals page at the same time. Each platform reuses one tab,
+      and <code>Ctrl+Q</code> flips between chart and fundamentals for whatever stock you're on. (There are also
+      manual ways to bridge the two — we compared all three in
+      <a href="how-to-open-chartink-scans-in-tradingview.html">the scan-to-chart guide</a>.)</p>
+
+    <h2 id="faq">Common questions</h2>
+    <details>
+      <summary>Is Chartink better than TradingView? <span class="tg">+</span></summary>
+      <div class="a">They solve different problems. Chartink is the stronger stock screener for NSE/BSE — its scan
+        language and community scans are built around Indian markets. TradingView has far stronger charting, drawing
+        tools and alerts. Most Indian traders scan on Chartink and chart on TradingView.</div>
+    </details>
+    <details>
+      <summary>Can I use Chartink and TradingView together? <span class="tg">+</span></summary>
+      <div class="a">Yes — that combination is the standard Indian retail workflow: run scans on Chartink, then
+        analyse each result on TradingView. A free Chrome extension like
+        <a href="index.html">Chartink Redirector</a> removes the friction by opening every Chartink stock link
+        directly on its TradingView chart.</div>
+    </details>
+    <details>
+      <summary>Is Chartink free to use? <span class="tg">+</span></summary>
+      <div class="a">Chartink's core screener and community scans are free to use. Paid plans add real-time scanning,
+        more alerts and other power features. TradingView likewise has a capable free plan with paid tiers for more
+        indicators, layouts and alerts.</div>
+    </details>
+    <details>
+      <summary>Does TradingView have a screener for Indian stocks? <span class="tg">+</span></summary>
+      <div class="a">Yes, TradingView's screener covers NSE and BSE stocks and is good for fundamental and simple
+        technical filters. But Chartink's condition-based scan builder and its huge library of community-made NSE
+        scans remain the reason most Indian technical traders screen there first.</div>
+    </details>
+
+    <div class="cta-band">
+      <h2>Make the two feel like one app</h2>
+      <p>Chartink Redirector opens every Chartink scan result straight on TradingView and Screener.in — free, 19 KB,
+        zero data collection.</p>
+      <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb"
+        target="_blank" rel="noopener">Add Chartink Redirector to Chrome</a>
+      <p class="meta">★ 5.0 on the Chrome Web Store · 30-second setup · no account needed</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap foot-in">
+      <span class="foot-brand">
+        <svg width="22" height="22" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#2563eb" />
+          <path d="M18 24h26M37 17l7 7-7 7" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M46 42H20m7-7-7 7 7 7" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Chartink Redirector
+      </span>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="https://chromewebstore.google.com/detail/kkpfeaaglkmflaongjnoghihnimdiifb" target="_blank" rel="noopener">Chrome Web Store</a>
+        <a href="how-to-open-chartink-scans-in-tradingview.html">Scan-to-chart guide</a>
+        <a href="privacy-policy.html">Privacy policy</a>
+      </div>
+      <div class="foot-credit">
+        <span>Developed by <b>Alen Sarang Satheesh</b></span>
+        <span>© 2026 · Not affiliated with Chartink, TradingView or Screener.in</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 14);
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+
+</html>
